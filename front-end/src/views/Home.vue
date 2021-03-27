@@ -18,17 +18,11 @@
       <h3>Select a County: </h3>
       <form>
 
-        <select id=”lunch” name=”lunch”>
-          <option value=”carson”>Carson City</option>
-          <option value=”churchill”>Chuchill County</option>
-          <option value=”clark”>Clark County</option>
-          <option value=”douglas”>Douglas County</option>
-          <option value=”elko”>Elko County</option>
-          <option value=”humboldt”>Humbolt County</option>
-          <option value=”mineral”>Mineral County</option>
-          <option value=”nye”>Nye County</option>
-          <option value=”washoe”>Washoe County</option>
-        </select>
+        <div>
+          <select>
+            <option v-for="county in this.countyList" :key="county.id">{{county.name}}</option>
+          </select>
+        </div>
       </form>
 
 
@@ -41,12 +35,24 @@
 
 <script>
 // @ is an alias to /src
-
+import axios from 'axios';
 export default {
   name: 'Home',
-  components: {
-
-  }
+  data() {
+    return {
+      countyList: [],
+    }
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    async getList() {
+      let response =  await axios.get("/api/county");
+      this.countyList = response.data;
+      console.log(this.countyList[0].name);
+    },
+  },
 }
 </script>
 
