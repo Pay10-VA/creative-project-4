@@ -1,18 +1,21 @@
 const express = require('express');
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const app = express();
-app.use(bodyParser.json());
+
+// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-const mongoose = require('mongoose');
+// parse application/json
+app.use(bodyParser.json());
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/test', {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
+mongoose.connect('mongodb://localhost:27017/todo', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
