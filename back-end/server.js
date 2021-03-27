@@ -42,4 +42,15 @@ app.post('/api/county', async (req, res) => {
   }
 });
 
+// Get a list of all counties in the collection
+app.get('/api/county', async (req, res) => {
+  try {
+    let countiesList = await County.find();
+    res.send(countiesList);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));
