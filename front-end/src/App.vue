@@ -4,7 +4,8 @@
       <h1>Vaccine Finder</h1>
       <div id="links">
         <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
+        <router-link to="/about">About</router-link> |
+        <router-link to="/admin">Admin</router-link> 
       </div>
     </div>
     <router-view/>
