@@ -47,8 +47,10 @@
         <div  v-for="location in this.locationList" :key="location.city" class="single-location">
           <h1>{{location.placeName}}</h1>
           <h3>{{location.streetAddress}}, {{location.city}} {{location.zipcode}}</h3>
-          <button>Edit</button>
-          <button>Delete</button>
+          <div class="buttons">
+            <button>Edit</button>
+            <button @click="deleteVaccLocation(location.county, location.streetAddress)">Delete</button>
+          </div>
         </div>
       </div>
 
@@ -164,6 +166,15 @@ export default {
       this.locationList = temp.filter(object => object.county == id);
       this.showList = true;
     },
+    async deleteVaccLocation(locationCounty, locationAddress) {
+      try {
+        console.log(locationCounty, locationAddress);
+        await axios.delete(`/api/county/${locationCounty}/site/${locationAddress}`);
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 }
 </script>
@@ -251,6 +262,12 @@ h2 {
   margin-top: 10px;
 }
 
+.single-location button {
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 100px;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
   h1 {
@@ -280,6 +297,7 @@ h2 {
 
   #edit-delete-location button{
     width: 50%;
+    margin-bottom: 30px;
   }
 
   #edit-div input {
@@ -288,6 +306,14 @@ h2 {
 
   #edit-div h2 {
     margin-top: 30px;
+  }
+
+  .single-location {
+    width: 40%;
+  }
+
+  .buttons {
+    display: flex;
   }
 
 }

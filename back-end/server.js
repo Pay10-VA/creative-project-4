@@ -134,6 +134,20 @@ app.get('/api/county/:countyID/site', async (req, res) => {
     }
 });
 
+app.delete('/api/county/:countyID/site/:siteAddress', async (req, res) => {
+    try {
+        let site = await Site.findOne({streetAddress:req.params.siteAddress, county: req.params.countyID});
+        if (!site) {
+            res.send(404);
+            return;
+        }
+        await site.delete();
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
 
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
