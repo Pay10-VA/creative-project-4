@@ -4,8 +4,8 @@
 
     <div id="add-county">
       <h2>Add a County</h2>
-      <input placeholder="County name"/>
-      <button>Add County</button>
+      <input v-model="countyName" placeholder="County name"/>
+      <button @click="addCounty()">Add County</button>
     </div>
 
     <div id="add-location">
@@ -20,6 +20,33 @@
 
   </div>
 </template>
+
+
+<script>
+// @ is an alias to /src
+import axios from 'axios';
+export default {
+  name: 'Admin',
+  data() {
+    return {
+      countyName: "",
+    }
+  },
+  methods: {
+    async addCounty() {
+      try {
+        await axios.post('/api/county', {
+          name: this.countyName,
+          numVaccLocations: 0,
+        });
+        this.countyName = "";
+      } catch(error) {
+        console.log(error);
+      }
+    },
+  },
+}
+</script>
 
 <style scoped>
 .admin {

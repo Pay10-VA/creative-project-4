@@ -31,7 +31,7 @@ const County = mongoose.model('County', countySchema);
 app.post('/api/county', async (req, res) => {
   const county = new County({
     name: req.body.name,
-    numVaccLocations: 2
+    numVaccLocations: req.body.numVaccLocations,
   });
   try {
     await county.save();
