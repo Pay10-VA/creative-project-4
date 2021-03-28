@@ -8,13 +8,19 @@
       <button @click="addCounty()">Add County</button>
     </div>
 
-    <div id="delete-county">
-      <h2>Delete a County</h2>
+    <div id="edit-delete-county">
+      <h2>Edit/Delete a County</h2>
       <select @change="changeCounty($event)">
-        <option value="" selected disabled>Choose</option>
+        <option value="" selected disabled>Choose County</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
       <button @click="deleteCounty()">Delete County</button>
+      <button @click="editCountyFunc()">Edit County Info</button>
+      <div v-if="this.editCounty" id="edit-div">
+        <h2>Edit</h2>
+        <input placeholder="Enter new county name" v-model="newCountyName"/>
+        <button @click="editCountyName()">Save Changes</button>
+      </div>
     </div>
 
     <div id="add-location">
@@ -23,8 +29,20 @@
       <input placeholder="Street Address"/>
       <input placeholder="City"/>
       <input placeholder="Zipcode"/>
-      <input placeholder="County"/>
+      <select @change="changeCounty($event)" id="second-select">
+        <option value="" selected disabled>Choose County</option>
+        <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
+      </select>
       <button>Add Location</button>
+    </div>
+
+    <div id="edit-delete-location">
+      <h2>Edit/Delete Vaccine Location</h2>
+      <select @change="changeCounty($event)" id="second-select">
+        <option value="" selected disabled>Choose County</option>
+        <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
+      </select>
+      <button>Find Vaccine Location</button>
     </div>
 
   </div>
@@ -41,6 +59,8 @@ export default {
       countyName: "",
       list: [],
       selectedCounty: "",
+      editCounty: false,
+      newCountyName: "",
     }
   },
   created() {
@@ -54,6 +74,7 @@ export default {
           numVaccLocations: 0,
         });
         this.countyName = "";
+        this.getCounties();
       } catch(error) {
         console.log(error);
       }
@@ -82,8 +103,26 @@ export default {
           if(this.list[i].name == name) {
             return this.list[i]._id;
           }
-        }
-    }
+      }
+    },
+    editCountyFunc() {
+      this.editCounty = true;
+    },
+    async editCountyName() {
+      let id = this.getCountyID(this.selectedCounty);
+      try {
+        await axios.put("/api/county/" + id, {
+          name: this.newCountyName,
+        });
+        this.selectedCounty = "";
+        this.getCounties();
+        this.editCounty = false;
+        this.newCountyName = "";
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 }
 </script>
@@ -107,17 +146,19 @@ margin-right: 5px;
   margin-bottom: 20px;
 }
 
-#delete-county {
+#edit-delete-county {
   text-align: left;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 50px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-#delete-county button {
-  margin-left: 5px;
+#edit-delete-county button {
+  margin-top: 5px;
 }
 
 #add-location {
@@ -138,7 +179,28 @@ h2 {
   font-size: 30px;
 }
 
+#second-select {
+  margin-bottom: 5px;
+}
 
+#edit-delete-location {
+  text-align: left;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+#edit-div input {
+  width: 60%;
+}
+
+#edit-div button {
+  width: 38%;
+}
 
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
@@ -150,8 +212,34 @@ h2 {
     width: 50%;
   }
 
+  #edit-delete-county button{
+    width: 50%;
+  }
+
+  #edit-delete-county select {
+    width: 50%;
+  }
+
   #add-location button{
     width: 50%;
   }
+
+  #second-select {
+    width: 50%;
+    margin-bottom: 5px;
+  }
+
+  #edit-delete-location button{
+    width: 50%;
+  }
+
+  #edit-div input {
+    width: 50%;
+  }
+
+  #edit-div h2 {
+    margin-top: 30px;
+  }
+
 }
 </style>

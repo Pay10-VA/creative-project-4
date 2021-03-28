@@ -63,4 +63,22 @@ app.delete('/api/county/:id', async (req, res) => {
   }
 });
 
+app.put('/api/county/:id', async (req, res) => {
+  try {
+     let county = await County.findOne({_id: req.params.id});
+     if (!county) {
+         res.send(404);
+         return;
+     }
+     county.name = req.body.name;
+
+     await county.save();
+     res.send(county);
+   } catch (error) {
+       console.log(error);
+       res.sendStatus(500);
+   }
+});
+
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));

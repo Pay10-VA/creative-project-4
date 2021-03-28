@@ -20,6 +20,7 @@
 
         <div>
           <select>
+            <option value="" selected disabled>Choose County</option>
             <option v-for="county in this.countyList" :key="county.id">{{county.name}}</option>
           </select>
         </div>
