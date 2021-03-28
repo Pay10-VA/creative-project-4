@@ -5,7 +5,7 @@
       <div id="links">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link> |
-        <router-link to="/admin">Admin</router-link> 
+        <router-link to="/admin">Admin</router-link>
       </div>
     </div>
     <router-view/>
@@ -59,6 +59,7 @@
   font-size: 20px;
   height: 50px;
   text-align: center;
+  margin-top: 50px;
 }
 
 </style>
