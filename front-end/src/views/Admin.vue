@@ -48,8 +48,15 @@
           <h1>{{location.placeName}}</h1>
           <h3>{{location.streetAddress}}, {{location.city}} {{location.zipcode}}</h3>
           <div class="buttons">
-            <button>Edit</button>
+            <button @click="editLocationFunction()">Edit</button>
             <button @click="deleteVaccLocation(location.county, location.streetAddress)">Delete</button>
+          </div>
+          <div v-if="editLocationDiv" class="edit-loc-div">
+            <input placeholder="New name" v-model="newPlaceName"/>
+            <input placeholder="New Address"  v-model="newStreetAddress"/>
+            <input placeholder="New City" v-model="newCity" />
+            <input placeholder="New Zipcode"  v-model="newZipcode" />
+            <button @click="editLocationInfo(location.county, location.streetAddress)">Submit</button>
           </div>
         </div>
       </div>
@@ -78,6 +85,11 @@ export default {
       placeName: "",
       locationList: [],
       showList: false,
+      editLocationDiv: false,
+      newPlaceName: "",
+      newStreetAddress: "",
+      newCity: "",
+      newZipcode: "",
     }
   },
   created() {
@@ -175,6 +187,24 @@ export default {
         console.log(error);
       }
     },
+    editLocationFunction() {
+      this.editLocationDiv = true;
+    },
+    async editLocationInfo(locationCounty, locationAddress) {
+      //Call put api endpoint
+      console.log(locationCounty, locationAddress);
+      try {
+        await axios.put(`/api/county/${locationCounty}/site/${locationAddress}`, {
+          city: this.newCity,
+          streetAddress: this.newStreetAddress,
+          placeName: this.newPlaceName,
+          zipcode: this.newZipcode,
+        });
+        location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 }
 </script>
@@ -266,6 +296,11 @@ h2 {
   margin-bottom: 10px;
   margin-right: 10px;
   width: 100px;
+}
+
+.edit-loc-div input {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 /* Desktop Styles */

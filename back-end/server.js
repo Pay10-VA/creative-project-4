@@ -149,5 +149,24 @@ app.delete('/api/county/:countyID/site/:siteAddress', async (req, res) => {
     }
 });
 
+app.put('/api/county/:countyID/site/:siteAddress', async (req, res) => {
+    try {
+        let site = await Site.findOne({streetAddress:req.params.siteAddress, county: req.params.countyID});
+        if (!site) {
+            res.send(404);
+            return;
+        }
+        site.city = req.body.city;
+        site.placeName = req.body.placeName;
+        site.zipcode = req.body.zipcode;
+        site.streetAddress = req.body.streetAddress;
+        await site.save();
+        res.send(site);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
