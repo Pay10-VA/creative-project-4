@@ -87,6 +87,9 @@ const siteSchema = new mongoose.Schema({
         ref: 'County'
     },
     city: String,
+    streetAddress: String,
+    placeName: String,
+    zipcode: String,
 })
 
 // Model for Vaccine Sites
@@ -103,6 +106,9 @@ app.post('/api/county/:countyID/site', async (req, res) => {
         let site = new Site({
             county: county,
             city: req.body.city,
+            streetAddress: req.body.streetAddress,
+            placeName: req.body.placeName,
+            zipcode: req.body.zipcode,
         });
         await site.save();
         res.send(site);
