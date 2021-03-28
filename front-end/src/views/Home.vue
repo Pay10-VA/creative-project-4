@@ -12,7 +12,8 @@
       <img id="state" src="../../public/Nevada_big_logo.png"/>
     </div>
 
-    <h1 id="title">Find A Vaccination Center</h1>
+    <h1 id="title">Find A Vaccination Center Near You</h1>
+    <hr>
 
     <div id="form-container">
       <h3>Select a County: </h3>
@@ -145,6 +146,13 @@ export default {
   color: #3771D8;
 }
 
+hr {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: black;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
 
@@ -201,6 +209,13 @@ export default {
   margin-right: 20px;
   height: 40px;
   width: 100px;
+}
+
+hr {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: black;
 }
 
 
