@@ -201,6 +201,10 @@ export default {
           zipcode: this.newZipcode,
         });
         location.reload();
+        this.newCity = "";
+        this.newStreetAddress = "";
+        this.newPlaceName = "";
+        this.newZipcode = "";
       } catch (error) {
         console.log(error);
       }
