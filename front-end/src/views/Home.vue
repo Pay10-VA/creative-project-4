@@ -99,6 +99,7 @@ export default {
   margin-right: auto;
   text-align: center;
   font-family: 'Quicksand', sans-serif;
+  min-height: calc(100vh - 80px - 100px);
 }
 
 #state {
