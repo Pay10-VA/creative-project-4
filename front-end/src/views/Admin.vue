@@ -8,6 +8,15 @@
       <button @click="addCounty()">Add County</button>
     </div>
 
+    <div id="delete-county">
+      <h2>Delete a County</h2>
+      <select @change="changeJobTitle($event)">
+        <option value="" selected disabled>Choose</option>
+        <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
+      </select>
+      <button @click="deleteCounty()">Delete County</button>
+    </div>
+
     <div id="add-location">
       <h2>Add Vaccine Location</h2>
       <input placeholder="Place"/>
@@ -30,7 +39,12 @@ export default {
   data() {
     return {
       countyName: "",
+      list: [],
+      selectedCounty: "",
     }
+  },
+  created() {
+    this.getCounties();
   },
   methods: {
     async addCounty() {
@@ -43,6 +57,17 @@ export default {
       } catch(error) {
         console.log(error);
       }
+    },
+    async getCounties() {
+      let response =  await axios.get("/api/county");
+      this.list = response.data;
+    },
+    async deleteCounty() {
+
+    },
+    changeJobTitle (event) {
+      this.selectedCounty = event.target.options[event.target.options.selectedIndex].text
+      console.log(this.selectedCounty);
     },
   },
 }
@@ -65,6 +90,19 @@ margin-right: 5px;
   margin-right: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+#delete-county {
+  text-align: left;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#delete-county button {
+  margin-left: 5px;
 }
 
 #add-location {

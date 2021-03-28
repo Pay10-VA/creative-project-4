@@ -50,7 +50,6 @@ export default {
     async getList() {
       let response =  await axios.get("/api/county");
       this.countyList = response.data;
-      console.log(this.countyList[0].name);
     },
   },
 }
