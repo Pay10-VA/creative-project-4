@@ -25,15 +25,15 @@
 
     <div id="add-location">
       <h2>Add Vaccine Location</h2>
-      <input placeholder="Place"/>
-      <input placeholder="Street Address"/>
-      <input placeholder="City"/>
-      <input placeholder="Zipcode"/>
+      <input placeholder="Place" v-model="placeName"/>
+      <input placeholder="Street Address" v-model="streetAddress"/>
+      <input placeholder="City" v-model="city"/>
+      <input placeholder="Zipcode" v-model="zipcode"/>
       <select @change="changeCounty($event)" id="second-select">
         <option value="" selected disabled>Choose County</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
-      <button>Add Location</button>
+      <button @click="addVaccLocation()">Add Location</button>
     </div>
 
     <div id="edit-delete-location">
@@ -61,6 +61,10 @@ export default {
       selectedCounty: "",
       editCounty: false,
       newCountyName: "",
+      streetAddress: "",
+      city: "",
+      zipcode: "",
+      placeName: "",
     }
   },
   created() {
@@ -121,6 +125,24 @@ export default {
         this.newCountyName = "";
         return true;
       } catch (error) {
+        console.log(error);
+      }
+    },
+    async addVaccLocation() {
+      let id = this.getCountyID(this.selectedCounty);
+      try {
+        await axios.post(`/api/county/${id}/site`, {
+          city: this.city,
+          streetAddress: this.streetAddress,
+          placeName: this.placeName,
+          zipcode: this.zipcode,
+        });
+        this.city = "";
+        this.placeName = "";
+        this.streetAddress = "";
+        this.zipcode = "";
+        location.reload();
+      } catch(error) {
         console.log(error);
       }
     },
