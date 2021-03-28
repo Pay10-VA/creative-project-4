@@ -80,5 +80,38 @@ app.put('/api/county/:id', async (req, res) => {
    }
 });
 
+// Schema for Vaccine Sites
+const siteSchema = new mongoose.Schema({
+    county: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'County'
+    },
+    city: String,
+})
+
+// Model for Vaccine Sites
+const Site = mongoose.model('Site',siteSchema);
+
+//Endpoint to add a vaccine site to a county
+app.post('/api/county/:countyID/site', async (req, res) => {
+    try {
+        let county = await County.findOne({_id: req.params.countyID});
+        if (!county) {
+            res.send(404);
+            return;
+        }
+        let site = new Site({
+            county: county,
+            city: req.body.city,
+        });
+        await site.save();
+        res.send(site);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
