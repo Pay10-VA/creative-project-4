@@ -10,7 +10,7 @@
 
     <div id="delete-county">
       <h2>Delete a County</h2>
-      <select @change="changeJobTitle($event)">
+      <select @change="changeCounty($event)">
         <option value="" selected disabled>Choose</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
@@ -63,12 +63,27 @@ export default {
       this.list = response.data;
     },
     async deleteCounty() {
-
+      let id = this.getCountyID(this.selectedCounty);
+      try {
+        await axios.delete("/api/county/" + id);
+        this.selectedCounty = null;
+        this.getCounties();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    changeJobTitle (event) {
+    changeCounty (event) {
       this.selectedCounty = event.target.options[event.target.options.selectedIndex].text
-      console.log(this.selectedCounty);
     },
+    getCountyID(name) {
+      for(let i = 0; i < this.list.length; i++) {
+          //console.log(this.list[i].name, this.list[i]._id);
+          if(this.list[i].name == name) {
+            return this.list[i]._id;
+          }
+        }
+    }
   },
 }
 </script>
