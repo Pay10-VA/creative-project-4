@@ -118,6 +118,22 @@ app.post('/api/county/:countyID/site', async (req, res) => {
     }
 });
 
+//Endpoint to get all vaccine locations from a given county
+app.get('/api/county/:countyID/site', async (req, res) => {
+    try {
+        let county = await County.findOne({_id: req.params.countyID});
+        if (!county) {
+            res.send(404);
+            return;
+        }
+        let sites = await Site.find({county: county});
+        res.send(sites);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
 
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));

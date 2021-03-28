@@ -42,7 +42,16 @@
         <option value="" selected disabled>Choose County</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
-      <button>Find Vaccine Location</button>
+      <button @click="getLocationsInThisCounty()">Find Vaccine Location</button>
+      <div v-if="this.showList == true">
+        <div  v-for="location in this.locationList" :key="location.city" class="single-location">
+          <h1>{{location.placeName}}</h1>
+          <h3>{{location.streetAddress}}, {{location.city}} {{location.zipcode}}</h3>
+          <button>Edit</button>
+          <button>Delete</button>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -65,6 +74,8 @@ export default {
       city: "",
       zipcode: "",
       placeName: "",
+      locationList: [],
+      showList: false,
     }
   },
   created() {
@@ -146,6 +157,13 @@ export default {
         console.log(error);
       }
     },
+    async getLocationsInThisCounty() {
+      let id = this.getCountyID(this.selectedCounty);
+      let listOfLocations = await axios.get(`/api/county/${id}/site`);
+      let temp = listOfLocations.data; //Allows us to read in the JSON data
+      this.locationList = temp.filter(object => object.county == id);
+      this.showList = true;
+    },
   },
 }
 </script>
@@ -223,6 +241,14 @@ h2 {
 
 #edit-div button {
   width: 38%;
+}
+
+.single-location {
+  border: solid;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  margin-top: 10px;
 }
 
 /* Desktop Styles */
