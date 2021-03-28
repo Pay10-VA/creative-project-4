@@ -44,8 +44,9 @@
       </select>
       <button @click="getLocationsInThisCounty()">Find Vaccine Location <i class="fas fa-search"></i></button>
       <div v-if="this.showList == true">
-        <div  v-for="location in this.locationList" :key="location.city" class="single-location">
-          <h1>{{location.placeName}}</h1>
+        <h1 class="bottom-space"><strong>Results:</strong></h1>
+        <div  v-for="location in this.locationList" :key="location.streetAddress" class="single-location">
+          <h2>{{location.placeName}}</h2>
           <h3><i class="fas fa-map-marker-alt blue"></i> {{location.streetAddress}}, {{location.city}} {{location.zipcode}}</h3>
           <div class="buttons">
             <button @click="editLocationFunction()">Edit <i class="fas fa-edit"></i></button>
@@ -217,6 +218,9 @@ export default {
 .admin {
   font-family: 'Quicksand', sans-serif;
   text-align: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 input {
@@ -318,12 +322,21 @@ h2 {
     font-size: 60px;
   }
 
+  #add-county {
+    text-align: center;
+  }
+
   #add-county button {
     width: 150px;
   }
 
   #add-location input{
     width: 50%;
+  }
+
+  #edit-delete-county {
+    text-align: center;
+    align-items: center;
   }
 
   #edit-delete-county button{
@@ -334,6 +347,11 @@ h2 {
     width: 50%;
   }
 
+  #add-location {
+    text-align: center;
+    align-items: center;
+  }
+
   #add-location button{
     width: 50%;
   }
@@ -341,6 +359,11 @@ h2 {
   #second-select {
     width: 50%;
     margin-bottom: 5px;
+  }
+
+  #edit-delete-location {
+    text-align: center;
+    align-items: center;
   }
 
   #edit-delete-location button{
@@ -357,11 +380,17 @@ h2 {
   }
 
   .single-location {
-    width: 40%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .buttons {
     display: flex;
+  }
+
+  .bottom-space {
+    margin-bottom: 50px;
   }
 
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="header">
-      <h1>Vaccine Finder</h1>
+      <h1><router-link to="/">Nevada Vaccine Finder <i class="fas fa-star-of-life"></i></router-link></h1>
       <div id="links">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link> |
@@ -35,6 +35,14 @@
   margin-left: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#header a {
+  color: #FFFFFF;
+}
+
+#header a:hover {
+  text-decoration: none;
 }
 
 #links {
