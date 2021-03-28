@@ -5,7 +5,7 @@
     <div id="add-county">
       <h2>Add a County</h2>
       <input v-model="countyName" placeholder="County name"/>
-      <button @click="addCounty()">Add County</button>
+      <button @click="addCounty()">Add County <i class="fas fa-plus"></i></button>
     </div>
 
     <div id="edit-delete-county">
@@ -14,8 +14,8 @@
         <option value="" selected disabled>Choose County</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
-      <button @click="deleteCounty()">Delete County</button>
-      <button @click="editCountyFunc()">Edit County Info</button>
+      <button @click="deleteCounty()">Delete County <i class="far fa-trash-alt"></i></button>
+      <button @click="editCountyFunc()">Edit County Info <i class="fas fa-edit"></i></button>
       <div v-if="this.editCounty" id="edit-div">
         <h2>Edit</h2>
         <input placeholder="Enter new county name" v-model="newCountyName"/>
@@ -33,7 +33,7 @@
         <option value="" selected disabled>Choose County</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
-      <button @click="addVaccLocation()">Add Location</button>
+      <button @click="addVaccLocation()">Add Location <i class="fas fa-plus"></i></button>
     </div>
 
     <div id="edit-delete-location">
@@ -42,14 +42,14 @@
         <option value="" selected disabled>Choose County</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
-      <button @click="getLocationsInThisCounty()">Find Vaccine Location</button>
+      <button @click="getLocationsInThisCounty()">Find Vaccine Location <i class="fas fa-search"></i></button>
       <div v-if="this.showList == true">
         <div  v-for="location in this.locationList" :key="location.city" class="single-location">
           <h1>{{location.placeName}}</h1>
-          <h3>{{location.streetAddress}}, {{location.city}} {{location.zipcode}}</h3>
+          <h3><i class="fas fa-map-marker-alt blue"></i> {{location.streetAddress}}, {{location.city}} {{location.zipcode}}</h3>
           <div class="buttons">
-            <button @click="editLocationFunction()">Edit</button>
-            <button @click="deleteVaccLocation(location.county, location.streetAddress)">Delete</button>
+            <button @click="editLocationFunction()">Edit <i class="fas fa-edit"></i></button>
+            <button @click="deleteVaccLocation(location.county, location.streetAddress)">Delete <i class="far fa-trash-alt"></i></button>
           </div>
           <div v-if="editLocationDiv" class="edit-loc-div">
             <input placeholder="New name" v-model="newPlaceName"/>
@@ -245,6 +245,7 @@ margin-right: 5px;
 
 #edit-delete-county button {
   margin-top: 5px;
+
 }
 
 #add-location {
@@ -307,10 +308,18 @@ h2 {
   margin-bottom: 5px;
 }
 
+.blue {
+  color: #3771D8;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
   h1 {
     font-size: 60px;
+  }
+
+  #add-county button {
+    width: 150px;
   }
 
   #add-location input{

@@ -30,7 +30,7 @@
             <div v-for="site in siteList" :key="site._id" class="single-site">
               <div class='left-div'>
                 <h1>{{site.placeName}}</h1>
-                <h3>{{site.streetAddress}}, {{site.city}} {{site.zipcode}}</h3>
+                <h3><i class="fas fa-map-marker-alt blue"></i> {{site.streetAddress}}, {{site.city}} {{site.zipcode}}</h3>
               </div>
               <div class='right-div'>
                 <button>Book Appt.</button>
@@ -141,11 +141,16 @@ export default {
   margin-bottom: 20px;
 }
 
+.blue {
+  color: #3771D8;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
 
 .home {
   width: 100%;
+  font-family: 'Quicksand', sans-serif;
 }
 
 #state {
