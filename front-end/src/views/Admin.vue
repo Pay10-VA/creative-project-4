@@ -115,7 +115,8 @@ export default {
           name: this.newCountyName,
         });
         this.selectedCounty = "";
-        this.getCounties();
+        //this.getCounties();
+        location.reload(); //reloads the entire page
         this.editCounty = false;
         this.newCountyName = "";
         return true;
