@@ -16,6 +16,15 @@
           <button id="cancel">Cancel</button>
         </div>
       </div>
+      <div id="helpful">
+        <h1>Things To Know </h1>
+        <ul>
+          <li>Make sure to bring personal identfication documents(Driver's license, passport, work ID)</li>
+          <li>Have your appointment confirmation available when checking-in</li>
+          <li>Arrive 15 minutes ahead of your scheduled vaccination time</li>
+
+        </ul>
+      </div>
     </div>
 
   </div>
@@ -95,6 +104,13 @@ export default {
 
 .element {
   margin-bottom: 20px;
+}
+
+#helpful {
+  text-align: left;
+  border: outset;
+  list-style-position: inside;
+  padding-left: 10px;
 }
 
 /* Desktop Styles */
