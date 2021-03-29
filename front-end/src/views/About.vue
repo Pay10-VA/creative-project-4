@@ -1,10 +1,15 @@
 <template>
   <div class="about">
-    <div id="page-title">
+    <div id="page-title" v-if="this.appointmentList.length != 0">
       <h1>Appointment Manager</h1>
     </div>
 
-    <div class="listOfAppointments">
+    <div id="message" v-if="this.appointmentList.length == 0">
+      <h1><strong>No Scheduled Appointments...</strong></h1>
+      <p>Click to <router-link to="/">here</router-link> to schedule an appointment</p>
+    </div>
+
+    <div class="listOfAppointments" v-if="this.appointmentList.length != 0">
       <div v-for="appointment in appointmentList" :key="appointment._id" class="single-appointment">
         <h1 class="element">{{appointment.placeName}}</h1>
         <h3 class="element"> <i class="fas fa-map-marker-alt blue"></i> {{appointment.placeAddress}} {{appointment.placeCity}} {{appointment.placeZipcode}}</h3>
@@ -122,12 +127,22 @@ export default {
   padding-left: 10px;
 }
 
+#message {
+  margin-top: 40%;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
 
 .listOfAppointments {
   width: 70%;
 }
+
+#message {
+  margin-top: 20%;
+}
+
+
 
 } /*Closing bracket for media queries*/
 
