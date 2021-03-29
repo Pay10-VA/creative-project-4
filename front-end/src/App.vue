@@ -4,7 +4,7 @@
       <h1><router-link to="/">Nevada Vaccine Finder <i class="fas fa-star-of-life"></i></router-link></h1>
       <div id="links">
         <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link> |
+        <router-link to="/about">Appointments</router-link> |
         <router-link to="/admin">Admin</router-link>
       </div>
     </div>
