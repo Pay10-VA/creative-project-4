@@ -206,4 +206,16 @@ app.post('/api/appointment', async (req, res) => {
 });
 
 
+//Endpoint to get all appointments in appointment collection
+app.get('/api/appointment', async (req, res) => {
+  try {
+    let list = await Appointment.find();
+    res.send(list);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));
