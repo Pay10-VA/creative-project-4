@@ -45,6 +45,7 @@
                   <input type="date" class="date-input" v-model="appointmentDate"/>
 
                   <select class="date-input" @change="changeAppointmentTime($event)">
+                    <option value="" selected disabled>Select Time</option>
                     <option value="8:00 am">8:00 am </option>
                     <option value="9:00 am">9:00 am </option>
                     <option value="10:00 am">10:00 am </option>

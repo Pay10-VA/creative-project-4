@@ -12,14 +12,40 @@
     <div class="listOfAppointments" v-if="this.appointmentList.length != 0">
       <div v-for="appointment in appointmentList" :key="appointment._id" class="single-appointment">
         <h1 class="element">{{appointment.placeName}}</h1>
-        <h3 class="element"> <i class="fas fa-map-marker-alt blue"></i> {{appointment.placeAddress}} {{appointment.placeCity}} {{appointment.placeZipcode}}</h3>
+        <h3 class="element"> <i class="fas fa-map-marker-alt blue"></i> {{appointment.placeAddress}}, {{appointment.placeCity}} {{appointment.placeZipcode}}</h3>
         <h5 class="element"> <i class="far fa-calendar-alt"></i> {{appointment.appointmentDate}}</h5>
         <h5 class="element"> <i class="far fa-clock"></i> {{appointment.appointmentTime}}</h5>
         <h6 class="element"> <i class="far fa-user"></i> {{appointment.userName}}, {{appointment.userAge}}</h6>
         <div class="button-div">
-          <button id="edit">Edit</button>
-          <button id="cancel" @click="cancelAppt(appointment._id)">Cancel</button>
+          <button id="edit" @click="editAppointmentFunction(appointment._id)" v-if="editAppointment == false">Edit</button>
+          <button id="cancel" @click="cancelAppt(appointment._id)" v-if="editAppointment == false">Cancel</button>
         </div>
+        <div v-if="show(appointment._id)" class="edit-apt-div">
+          <label>Enter new changes</label>
+          <div class="first-div">
+            <input type="date" />
+            <select class="date-input" @change="changeAppointmentTime($event)">
+              <option value="" selected disabled>Select New Time</option>
+              <option value="8:00 am">8:00 am </option>
+              <option value="9:00 am">9:00 am </option>
+              <option value="10:00 am">10:00 am </option>
+              <option value="11:00 am">11:00 am </option>
+              <option value="12:00 pm">12:00 pm </option>
+              <option value="1:00 pm">1:00 pm </option>
+              <option value="2:00 pm">2:00 pm </option>
+              <option value="3:00 pm">3:00 pm </option>
+              <option value="4:00 pm">4:00 pm </option>
+              <option value="5:00 pm">5:00 pm </option>
+            </select>
+          </div>
+          <div class="second-div">
+            <input placeHolder="Enter Name"/>
+            <input placeHolder="Enter Age"/>
+          </div>
+          <button>Save Changes</button>
+          <button id="nevermind" @click="cancelEditAppt()">Delete Changes</button>
+        </div>
+
       </div>
       <div id="helpful">
         <h1>Things To Know </h1>
@@ -43,6 +69,12 @@ export default {
   data() {
     return {
       appointmentList: [],
+      editAppointment: false,
+      editAppointmentID: "",
+      newName: "",
+      newAge: 0,
+      newTime: "",
+      newDate: "",
     }
   },
   created() {
@@ -62,6 +94,22 @@ export default {
         console.log(error);
       }
     },
+    editAppointmentFunction(id) {
+      this.editAppointment = true;
+      this.editAppointmentID = id;
+    },
+    cancelEditAppt() {
+      this.editAppointment = false;
+      this.editAppointmentID = "";
+    },
+    show(givenID) {
+      if(givenID == this.editAppointmentID) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
   },
 }
 </script>
@@ -130,6 +178,42 @@ export default {
 #message {
   margin-top: 40%;
 }
+
+.edit-apt-div {
+  margin-top: 20px;
+}
+
+.first-div input {
+  width: 60%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.first-div select {
+  height: 30px;
+  width: 60%;
+  margin-bottom: 10px;
+}
+
+.second-div input {
+  width: 60%;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.edit-apt-div button {
+  width: 60%;
+  height: 30px;
+  background-color: #2DAE46;
+  color: #FFFFFF;
+}
+
+#nevermind {
+  margin-top: 10px;
+  background-color: #CF2E17;
+  color: #FFFFFF;
+}
+
 
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
