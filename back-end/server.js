@@ -168,6 +168,42 @@ app.put('/api/county/:countyID/site/:siteAddress', async (req, res) => {
     }
 });
 
+// Create a scheme for appointment
+const appointmentSchema = new mongoose.Schema({
+  userName: String,
+  userAge: Number,
+  appointmentTime: String,
+  appointmentDate: String,
+  placeName: String,
+  placeAddress: String,
+  placeZipcode: String,
+  placeCity: String,
+});
+
+// Create a model for appointments
+const Appointment = mongoose.model('Appointment', appointmentSchema);
+
+
+// Create an appointment
+app.post('/api/appointment', async (req, res) => {
+  const appointment = new Appointment({
+    userName: req.body.userName,
+    userAge: req.body.userAge,
+    appointmentTime: req.body.appointmentTime,
+    appointmentDate: req.body.appointmentDate,
+    placeName: req.body.placeName,
+    placeAddress: req.body.placeAddress,
+    placeZipcode: req.body.placeZipcode,
+    placeCity: req.body.placeCity,
+  });
+  try {
+    await appointment.save();
+    res.send(appointment);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));

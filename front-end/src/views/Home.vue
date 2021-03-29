@@ -62,7 +62,7 @@
                     <input id="left-input" class="personal-info" placeHolder="Full Name" v-model="userName"/>
                     <input id="right-input" class="personal-info" placeHolder="Age" v-model="userAge">
                   </div>
-                  <button id="reserve">Reserve Vaccination Slot</button>
+                  <button id="reserve" @click="addAppointment(site.placeName, site.streetAddress, site.zipcode, site.city)">Reserve Vaccination Slot</button>
                   <button id="cancel" @click="reloadPage()">Cancel</button>
                 </div>
               </div>
@@ -143,7 +143,27 @@ export default {
     },
     changeAppointmentTime(event) {
       this.appointmentTime = event.target.options[event.target.options.selectedIndex].text
-    }
+    },
+    async addAppointment(place, address, zip, city) {
+      try {
+        await axios.post('/api/appointment', {
+          userName: this.userName,
+          userAge: this.userAge,
+          appointmentDate: this.appointmentDate,
+          appointmentTime: this.appointmentTime,
+          placeName: place,
+          placeAddress: address,
+          placeZipcode: zip,
+          placeCity: city
+        });
+        this.userName = "";
+        this.userAge = 0;
+        this.appointmentDate = "";
+        this.appointmentTime = "";
+      } catch(error) {
+        console.log(error);
+      }
+    },
   },
 }
 </script>
