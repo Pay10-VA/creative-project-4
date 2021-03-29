@@ -18,7 +18,7 @@
       <button @click="editCountyFunc()">Edit County Info <i class="fas fa-edit"></i></button>
       <div v-if="this.editCounty" id="edit-div">
         <h2>Edit</h2>
-        <input placeholder="Enter new county name" v-model="newCountyName"/>
+        <input placeholder="Enter new name" v-model="newCountyName"/>
         <button @click="editCountyName()">Save Changes</button>
       </div>
     </div>
@@ -45,19 +45,21 @@
       <button @click="getLocationsInThisCounty()">Find Vaccine Location <i class="fas fa-search"></i></button>
       <div v-if="this.showList == true">
         <h1 class="bottom-space"><strong>Results:</strong></h1>
+
         <div  v-for="location in this.locationList" :key="location.streetAddress" class="single-location">
           <h2>{{location.placeName}}</h2>
           <h3><i class="fas fa-map-marker-alt blue"></i> {{location.streetAddress}}, {{location.city}} {{location.zipcode}}</h3>
           <div class="buttons">
-            <button @click="editLocationFunction()">Edit <i class="fas fa-edit"></i></button>
-            <button @click="deleteVaccLocation(location.county, location.streetAddress)">Delete <i class="far fa-trash-alt"></i></button>
+            <button @click="editLocationFunction(location.streetAddress)" v-if="editLocationDiv == false">Edit <i class="fas fa-edit"></i></button>
+            <button @click="deleteVaccLocation(location.county, location.streetAddress)" v-if="editLocationDiv == false">Delete <i class="far fa-trash-alt"></i></button>
           </div>
-          <div v-if="editLocationDiv" class="edit-loc-div">
+          <div v-if="showDiv(location.streetAddress)" class="edit-loc-div">
             <input placeholder="New name" v-model="newPlaceName"/>
             <input placeholder="New Address"  v-model="newStreetAddress"/>
             <input placeholder="New City" v-model="newCity" />
             <input placeholder="New Zipcode"  v-model="newZipcode" />
             <button @click="editLocationInfo(location.county, location.streetAddress)">Submit</button>
+            <button @click="cancelChanges()">Cancel Changes</button>
           </div>
         </div>
       </div>
@@ -91,6 +93,7 @@ export default {
       newStreetAddress: "",
       newCity: "",
       newZipcode: "",
+      editAddress: "",
     }
   },
   created() {
@@ -188,8 +191,9 @@ export default {
         console.log(error);
       }
     },
-    editLocationFunction() {
+    editLocationFunction(address) {
       this.editLocationDiv = true;
+      this.editAddress = address;
     },
     async editLocationInfo(locationCounty, locationAddress) {
       //Call put api endpoint
@@ -210,6 +214,18 @@ export default {
         console.log(error);
       }
     },
+    showDiv(address) {
+      if(address == this.editAddress) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    },
+    cancelChanges() {
+      this.editLocationDiv = false;
+      this.editAddress = "";
+    }
   },
 }
 </script>
