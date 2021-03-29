@@ -23,8 +23,8 @@
         <div v-if="show(appointment._id)" class="edit-apt-div">
           <label>Enter new changes</label>
           <div class="first-div">
-            <input type="date" />
-            <select class="date-input" @change="changeAppointmentTime($event)">
+            <input type="date" v-model="newDate"/>
+            <select class="date-input" @change="changeAppointmentTimeAgain($event)">
               <option value="" selected disabled>Select New Time</option>
               <option value="8:00 am">8:00 am </option>
               <option value="9:00 am">9:00 am </option>
@@ -39,10 +39,10 @@
             </select>
           </div>
           <div class="second-div">
-            <input placeHolder="Enter Name"/>
-            <input placeHolder="Enter Age"/>
+            <input placeHolder="Enter Name" v-model="newName"/>
+            <input placeHolder="Enter Age" v-model="newAge"/>
           </div>
-          <button>Save Changes</button>
+          <button @click="saveAppointmentEdits(appointment._id, appointment.placeName, appointment.placeAddress, appointment.placeCity, appointment.placeZipcode)">Save Changes</button>
           <button id="nevermind" @click="cancelEditAppt()">Delete Changes</button>
         </div>
 
@@ -108,6 +108,28 @@ export default {
       }
       else {
         return false;
+      }
+    },
+    changeAppointmentTimeAgain(event) {
+      this.newTime = event.target.options[event.target.options.selectedIndex].text
+    },
+    async saveAppointmentEdits(id, place, address, city, zip) {
+      try {
+        await axios.put(`/api/appointment/${id}`, {
+          userName: this.newName,
+          userAge: this.newAge,
+          appointmentTime: this.newTime,
+          appointmentDate: this.newDate,
+          placeName: place,
+          placeAddress: address,
+          placeZipcode: zip,
+          placeCity: city
+        });
+        location.reload();
+
+        this.newZipcode = "";
+      } catch (error) {
+        console.log(error);
       }
     }
   },

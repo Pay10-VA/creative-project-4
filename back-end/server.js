@@ -228,4 +228,31 @@ app.delete('/api/appointment/:id', async (req, res) => {
   }
 });
 
+app.put('/api/appointment/:id', async (req, res) => {
+  try {
+     let appointment = await Appointment.findOne({_id: req.params.id});
+     if (!appointment) {
+         res.send(404);
+         return;
+     }
+     //county.name = req.body.name;
+     appointment.userName = req.body.userName;
+     appointment.userAge = req.body.userAge;
+     appointment.appointmentTime = req.body.appointmentTime;
+     appointment.appointmentDate = req.body.appointmentDate;
+     appointment.placeName = req.body.placeName;
+     appointment.placeAddress = req.body.placeAddress;
+     appointment.placeZipcode = req.body.placeZipcode;
+     appointment.placeCity = req.body.placeCity;
+
+     await appointment.save();
+     res.send(appointment);
+   } catch (error) {
+       console.log(error);
+       res.sendStatus(500);
+   }
+});
+
+
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));
