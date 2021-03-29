@@ -13,7 +13,7 @@
         <h6 class="element"> <i class="far fa-user"></i> {{appointment.userName}}, {{appointment.userAge}}</h6>
         <div class="button-div">
           <button id="edit">Edit</button>
-          <button id="cancel">Cancel</button>
+          <button id="cancel" @click="cancelAppt(appointment._id)">Cancel</button>
         </div>
       </div>
       <div id="helpful">
@@ -47,7 +47,16 @@ export default {
     async getAppointmentList() {
       let list = await axios.get('/api/appointment');
       this.appointmentList = list.data;
-    }
+    },
+    async cancelAppt(id) {
+      try {
+        await axios.delete("/api/appointment/" + id);
+        this.getAppointmentList();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 }
 </script>
