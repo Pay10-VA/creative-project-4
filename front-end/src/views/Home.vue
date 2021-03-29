@@ -42,25 +42,25 @@
               <div class="book" v-if="isSameAddress(site.streetAddress)">
                 <label for="date-input">Complete the following fields: </label>
                 <div class="inputs">
-                  <input type="date" class="date-input"/>
+                  <input type="date" class="date-input" v-model="appointmentDate"/>
 
-                  <select class="date-input">
-                    <option>8:00 am </option>
-                    <option>9:00 am </option>
-                    <option>10:00 am </option>
-                    <option>11:00 am </option>
-                    <option>12:00 pm </option>
-                    <option>1:00 pm </option>
-                    <option>2:00 pm </option>
-                    <option>3:00 pm </option>
-                    <option>4:00 pm </option>
-                    <option>5:00 pm </option>
+                  <select class="date-input" @change="changeAppointmentTime($event)">
+                    <option value="8:00 am">8:00 am </option>
+                    <option value="9:00 am">9:00 am </option>
+                    <option value="10:00 am">10:00 am </option>
+                    <option value="11:00 am">11:00 am </option>
+                    <option value="12:00 pm">12:00 pm </option>
+                    <option value="1:00 pm">1:00 pm </option>
+                    <option value="2:00 pm">2:00 pm </option>
+                    <option value="3:00 pm">3:00 pm </option>
+                    <option value="4:00 pm">4:00 pm </option>
+                    <option value="5:00 pm">5:00 pm </option>
                   </select>
 
 
                   <div class="personal">
-                    <input id="left-input" class="personal-info" placeHolder="Full Name"/>
-                    <input id="right-input" class="personal-info" placeHolder="Age">
+                    <input id="left-input" class="personal-info" placeHolder="Full Name" v-model="userName"/>
+                    <input id="right-input" class="personal-info" placeHolder="Age" v-model="userAge">
                   </div>
                   <button id="reserve">Reserve Vaccination Slot</button>
                   <button id="cancel" @click="reloadPage()">Cancel</button>
@@ -92,6 +92,10 @@ export default {
       siteList: [],
       bookAppointment: false,
       bookAddress: "",
+      userAge: 0,
+      userName: "",
+      appointmentTime: "",
+      appointmentDate: "",
     }
   },
   created() {
@@ -116,7 +120,7 @@ export default {
     },
     async getSitesList() {
       let id = this.getCountyID();
-      console.log(id);
+      //console.log(id);
       let listOfLocations = await axios.get(`/api/county/${id}/site`);
       this.siteList = listOfLocations.data;
     },
@@ -136,6 +140,9 @@ export default {
     reloadPage() {
       this.bookAddress = "";
       this.bookAppointment = false;
+    },
+    changeAppointmentTime(event) {
+      this.appointmentTime = event.target.options[event.target.options.selectedIndex].text
     }
   },
 }
