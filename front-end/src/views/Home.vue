@@ -29,13 +29,44 @@
             <h1 id="results-header">Vaccination Sites in {{this.selectedCounty}}:</h1>
 
             <div v-for="site in siteList" :key="site._id" class="single-site">
-              <div class='left-div'>
-                <h1>{{site.placeName}}</h1>
-                <h3><i class="fas fa-map-marker-alt blue"></i> {{site.streetAddress}}, {{site.city}} {{site.zipcode}}</h3>
+              <div class="top-div">
+                <div class='left-div'>
+                  <h1>{{site.placeName}}</h1>
+                  <h3><i class="fas fa-map-marker-alt blue"></i> {{site.streetAddress}}, {{site.city}} {{site.zipcode}}</h3>
+                </div>
+                <div class='right-div'>
+                  <button v-if="bookAppointment == false" @click="bookIt(site.streetAddress)">Book Appt.</button>
+                </div>
               </div>
-              <div class='right-div'>
-                <button>Book Appt.</button>
+
+              <div class="book" v-if="isSameAddress(site.streetAddress)">
+                <label for="date-input">Complete the following fields: </label>
+                <div class="inputs">
+                  <input type="date" class="date-input"/>
+
+                  <select class="date-input">
+                    <option>8:00 am </option>
+                    <option>9:00 am </option>
+                    <option>10:00 am </option>
+                    <option>11:00 am </option>
+                    <option>12:00 pm </option>
+                    <option>1:00 pm </option>
+                    <option>2:00 pm </option>
+                    <option>3:00 pm </option>
+                    <option>4:00 pm </option>
+                    <option>5:00 pm </option>
+                  </select>
+
+
+                  <div class="personal">
+                    <input id="left-input" class="personal-info" placeHolder="Full Name"/>
+                    <input id="right-input" class="personal-info" placeHolder="Age">
+                  </div>
+                  <button id="reserve">Reserve Vaccination Slot</button>
+                  <button id="cancel" @click="reloadPage()">Cancel</button>
+                </div>
               </div>
+
             </div>
 
           </div>
@@ -59,6 +90,8 @@ export default {
       selectedCounty: "",
       selected: false,
       siteList: [],
+      bookAppointment: false,
+      bookAddress: "",
     }
   },
   created() {
@@ -87,6 +120,23 @@ export default {
       let listOfLocations = await axios.get(`/api/county/${id}/site`);
       this.siteList = listOfLocations.data;
     },
+    bookIt(address) {
+      this.bookAppointment = true;
+      this.bookAddress = address;
+
+    },
+    isSameAddress(givenAddress) {
+      if(givenAddress == this.bookAddress) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    },
+    reloadPage() {
+      this.bookAddress = "";
+      this.bookAppointment = false;
+    }
   },
 }
 </script>
@@ -154,6 +204,43 @@ hr {
   background-color: black;
 }
 
+.book {
+  margin-bottom: 20px;
+}
+
+.inputs input {
+  margin-right: 10px;
+  height: 30px;
+}
+
+.inputs select {
+  height: 30px;
+  margin-bottom: 20px;
+}
+
+#left-input {
+  width: 51%;
+}
+
+#right-input {
+  width: 25%;
+}
+
+#reserve {
+  margin-top: 20px;
+  width: 30%;
+  background-color: #2DAE46;
+  color: #FFFFFF;
+}
+
+#cancel {
+  margin-top: 10px;
+  display: block;
+  width: 30%;
+  background-color: #CF2E17;
+  color: #FFFFFF;
+}
+
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
 
@@ -219,7 +306,24 @@ hr {
   background-color: black;
 }
 
-
+.book {
+  margin-top: 30px;
+  display: block;
 }
+
+.single-site {
+  display: block;
+}
+
+.top-div {
+  display: flex;
+}
+
+#cancel {
+  display: inline;
+  margin-left: 10px;
+}
+
+}/*closing bracket for media styles*/
 
 </style>
