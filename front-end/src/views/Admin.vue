@@ -54,12 +54,16 @@
             <button @click="deleteVaccLocation(location.county, location.streetAddress)" v-if="editLocationDiv == false">Delete <i class="far fa-trash-alt"></i></button>
           </div>
           <div v-if="showDiv(location.streetAddress)" class="edit-loc-div">
-            <input placeholder="New name" v-model="newPlaceName"/>
-            <input placeholder="New Address"  v-model="newStreetAddress"/>
-            <input placeholder="New City" v-model="newCity" />
-            <input placeholder="New Zipcode"  v-model="newZipcode" />
-            <button @click="editLocationInfo(location.county, location.streetAddress)">Submit</button>
-            <button @click="cancelChanges()">Cancel Changes</button>
+            <div class="first">
+              <input placeholder="New name" v-model="newPlaceName"/>
+              <input placeholder="New Address"  v-model="newStreetAddress"/>
+              <input placeholder="New City" v-model="newCity" />
+              <input placeholder="New Zipcode"  v-model="newZipcode" />
+            </div>
+            <div class="second">
+              <button class="submitChanges" @click="editLocationInfo(location.county, location.streetAddress)">Submit</button>
+              <button class="back" @click="cancelChanges()">Back</button>
+            </div>
           </div>
         </div>
       </div>
@@ -328,8 +332,24 @@ h2 {
   margin-bottom: 5px;
 }
 
+.edit-loc-div {
+  display: block;
+}
+
+
 .blue {
   color: #3771D8;
+}
+
+.back {
+  background-color: #CF2E17; /*red*/
+  color: #FFFFFF;
+  margin-top: 0px;
+}
+
+.submitChanges {
+  background-color: #2DAE46; /*green*/
+  color: #FFFFFF;
 }
 
 /* Desktop Styles */
@@ -408,6 +428,26 @@ h2 {
   .bottom-space {
     margin-bottom: 50px;
   }
+
+  .edit-loc-div {
+    display: block;
+  }
+
+  .first input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+
+.second {
+  display: flex-block;
+  margin-top: 20px;
+}
+
+.second button {
+  width: 50%;
+}
 
 }
 </style>
