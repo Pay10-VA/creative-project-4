@@ -17,7 +17,7 @@
       <button class="redButton" @click="deleteCounty()">Delete County <i class="far fa-trash-alt"></i></button>
       <button class="blueButton" @click="editCountyFunc()">Edit County Info <i class="fas fa-edit"></i></button>
       <div v-if="this.editCounty" id="edit-div">
-        <h2>Edit</h2>
+        <h2>Edit County Name</h2>
         <input placeholder="Enter new name" v-model="newCountyName"/>
         <button @click="editCountyName()">Save Changes</button>
       </div>
@@ -126,6 +126,7 @@ export default {
         await axios.delete("/api/county/" + id);
         this.selectedCounty = null;
         this.getCounties();
+        location.reload();
         return true;
       } catch (error) {
         console.log(error);
@@ -424,6 +425,10 @@ h2 {
 
   #edit-div input {
     width: 50%;
+  }
+
+  #edit-div {
+    margin-bottom: 30px;
   }
 
   #edit-div h2 {

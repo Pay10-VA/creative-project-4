@@ -23,7 +23,7 @@
         <div v-if="show(appointment._id)" class="edit-apt-div">
           <label>Enter new changes</label>
           <div class="first-div">
-            <input type="date" v-model="newDate"/>
+            <input type="date" v-model="newDate" placeHolder="Appt. Date: mm-dd-yyyy"/>
             <select class="date-input" @change="changeAppointmentTimeAgain($event)">
               <option value="" selected disabled>Select New Time</option>
               <option value="8:00 am">8:00 am </option>
@@ -72,7 +72,7 @@ export default {
       editAppointment: false,
       editAppointmentID: "",
       newName: "",
-      newAge: 0,
+      newAge: "",
       newTime: "",
       newDate: "",
     }

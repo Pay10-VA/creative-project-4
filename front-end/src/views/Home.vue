@@ -44,7 +44,7 @@
               <div class="book" v-if="isSameAddress(site.streetAddress)">
                 <label for="date-input">Complete the following fields: </label>
                 <div class="inputs">
-                  <input type="date" class="date-input" v-model="appointmentDate"/>
+                  <input type="date" class="date-input" v-model="appointmentDate" placeHolder="Appt. Date: mm-dd-yyyy"/>
 
                   <select class="date-input" @change="changeAppointmentTime($event)">
                     <option value="" selected disabled>Select Time</option>
@@ -100,7 +100,7 @@ export default {
       siteList: [],
       bookAppointment: false,
       bookAddress: "",
-      userAge: 0,
+      userAge: "",
       userName: "",
       appointmentTime: "",
       appointmentDate: "",
@@ -174,6 +174,7 @@ export default {
           this.userAge = 0;
           this.appointmentDate = "";
           this.appointmentTime = "";
+          location.reload();
         } catch(error) {
           console.log(error);
         }
