@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="alert alert-danger" role="alert" v-if="overLimit == true">
-                  You can't schedule more than 2 appointments
+                  You can't schedule more than two appointments. Press CANCEL to continue
                 </div>
 
               </div>
