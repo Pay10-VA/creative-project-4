@@ -8,6 +8,8 @@
     </button>
   </div>
 
+
+
     <div id="container">
       <img id="state" src="../../public/Nevada_big_logo.png"/>
     </div>
@@ -63,9 +65,14 @@
                     <input id="left-input" class="personal-info" placeHolder="Full Name" v-model="userName"/>
                     <input id="right-input" class="personal-info" placeHolder="Age" v-model="userAge">
                   </div>
-                  <button id="reserve" @click="addAppointment(site.placeName, site.streetAddress, site.zipcode, site.city)">Reserve Vaccination Slot</button>
+                  <button type="button" id="reserve" @click="addAppointment(site.placeName, site.streetAddress, site.zipcode, site.city)">Reserve Vaccination Slot</button>
                   <button id="cancel" @click="reloadPage()">Cancel</button>
                 </div>
+
+                <div class="alert alert-danger" role="alert" v-if="overLimit == true">
+                  You can't schedule more than 2 appointments
+                </div>
+
               </div>
 
             </div>
@@ -98,6 +105,7 @@ export default {
       appointmentTime: "",
       appointmentDate: "",
       appointmentList: [],
+      overLimit: false,
     }
   },
   created() {
@@ -170,11 +178,13 @@ export default {
           console.log(error);
         }
       }
+      else {
+        this.overLimit = true;
+      }
     },
     async getNumAppointments() {
       let list = await axios.get('/api/appointment');
       this.appointmentList = list.data;
-      console.log(this.appointmentList.length);
     }
   },
 }
@@ -278,6 +288,10 @@ hr {
   width: 30%;
   background-color: #CF2E17;
   color: #FFFFFF;
+}
+
+.alert {
+  margin-top: 10px;
 }
 
 /* Desktop Styles */
