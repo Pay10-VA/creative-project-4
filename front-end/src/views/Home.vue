@@ -97,6 +97,7 @@ export default {
       userName: "",
       appointmentTime: "",
       appointmentDate: "",
+      appointmentList: [],
     }
   },
   created() {
@@ -106,6 +107,7 @@ export default {
     async getList() {
       let response =  await axios.get("/api/county");
       this.countyList = response.data;
+      this.getNumAppointments();
     },
     changeCounty (event) {
       this.selectedCounty = event.target.options[event.target.options.selectedIndex].text
@@ -146,25 +148,34 @@ export default {
       this.appointmentTime = event.target.options[event.target.options.selectedIndex].text
     },
     async addAppointment(place, address, zip, city) {
-      try {
-        await axios.post('/api/appointment', {
-          userName: this.userName,
-          userAge: this.userAge,
-          appointmentDate: this.appointmentDate,
-          appointmentTime: this.appointmentTime,
-          placeName: place,
-          placeAddress: address,
-          placeZipcode: zip,
-          placeCity: city
-        });
-        this.userName = "";
-        this.userAge = 0;
-        this.appointmentDate = "";
-        this.appointmentTime = "";
-      } catch(error) {
-        console.log(error);
+      //Check number of appointments. Can't book more than two appointments
+      this.getNumAppointments;
+      if(this.appointmentList.length + 1 < 3) {
+        try {
+          await axios.post('/api/appointment', {
+            userName: this.userName,
+            userAge: this.userAge,
+            appointmentDate: this.appointmentDate,
+            appointmentTime: this.appointmentTime,
+            placeName: place,
+            placeAddress: address,
+            placeZipcode: zip,
+            placeCity: city
+          });
+          this.userName = "";
+          this.userAge = 0;
+          this.appointmentDate = "";
+          this.appointmentTime = "";
+        } catch(error) {
+          console.log(error);
+        }
       }
     },
+    async getNumAppointments() {
+      let list = await axios.get('/api/appointment');
+      this.appointmentList = list.data;
+      console.log(this.appointmentList.length);
+    }
   },
 }
 </script>
