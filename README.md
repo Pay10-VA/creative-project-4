@@ -12,3 +12,6 @@ The home page allows users to select a Nevada county. After the selection is mad
 
 The appointment manager page will list all of the user's currently booked appointments. The user will also be given the option to make changes to their appointment(like rescheduling a date and time) and to cancel that appointment. The entire site is based around the assumption that only two-dose vaccines exist. As such, users will not be allowed from making more than two vaccine doses.
 
+## Admin Page
+
+The admin page allows the site administrator to add, delete, and edit information, such as adding new counties and new vaccine locations, as well as deleting and editing their properties.
