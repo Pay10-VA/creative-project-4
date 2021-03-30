@@ -123,7 +123,8 @@ export default {
     async deleteCounty() {
       let id = this.getCountyID(this.selectedCounty);
       try {
-        await axios.delete("/api/county/" + id);
+        await axios.delete("/api/county/" + id + "/site"); //Deletes all locations in that county
+        await axios.delete("/api/county/" + id); //Deletes the county
         this.selectedCounty = null;
         this.getCounties();
         location.reload();

@@ -134,6 +134,24 @@ app.get('/api/county/:countyID/site', async (req, res) => {
     }
 });
 
+app.delete('/api/county/:countyID/site', async (req, res) => {
+    try {
+        let county = await County.findOne({_id: req.params.countyID});
+        console.log(county);
+        if (!county) {
+            res.send(404);
+            return;
+        }
+        await Site.deleteMany({county: county});
+        res.sendStatus(200);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+});
+
+
+//Endpoint to delete all vaccine locations in a certain county
 app.delete('/api/county/:countyID/site/:siteAddress', async (req, res) => {
     try {
         let site = await Site.findOne({streetAddress:req.params.siteAddress, county: req.params.countyID});
