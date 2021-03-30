@@ -10,7 +10,7 @@
     </div>
     <router-view/>
     <div id="footer">
-      <a>GitHub Repository</a>
+      <a id="footer-link" href="https://github.com/Pay10-VA/creative-project-4.git">GitHub Repository</a>
     </div>
   </div>
 </template>
@@ -37,12 +37,17 @@
   margin-bottom: 10px;
 }
 
+#footer-link {
+  color: #FFFFFF;
+}
+
 #header a {
   color: #FFFFFF;
 }
 
 #header a:hover {
   text-decoration: none;
+  color: #FFFFFF;
 }
 
 #links {

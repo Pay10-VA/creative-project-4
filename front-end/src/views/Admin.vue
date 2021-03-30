@@ -42,7 +42,7 @@
         <option value="" selected disabled>Choose County</option>
         <option v-for="county in this.list" :key="county.id" :value="county.id">{{county.name}}</option>
       </select>
-      <button class="blueButton" @click="getLocationsInThisCounty()">Find Vaccine Location <i class="fas fa-search"></i></button>
+      <button  @click="getLocationsInThisCounty()">Find Vaccine Location <i class="fas fa-search"></i></button>
       <div v-if="this.showList == true">
         <h1 class="bottom-space"><strong>Results:</strong></h1>
 

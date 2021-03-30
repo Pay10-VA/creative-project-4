@@ -2,7 +2,7 @@
   <div class="home">
 
   <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Warning!</strong> This is not a real site. This is a school project. DO NOT use this site for medical or covid related information
+    <strong>Warning!</strong> This is not a real site. This is a school project. DO NOT use this site for medical, covid, or vaccine related information
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
   <span aria-hidden="true">&times;</span>
     </button>
