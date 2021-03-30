@@ -113,7 +113,7 @@ export default {
         this.countyName = "";
         this.getCounties();
       } catch(error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     async getCounties() {
@@ -130,7 +130,7 @@ export default {
         location.reload();
         return true;
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     changeCounty (event) {
@@ -160,7 +160,7 @@ export default {
         this.newCountyName = "";
         return true;
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     async addVaccLocation() {
@@ -178,7 +178,7 @@ export default {
         this.zipcode = "";
         location.reload();
       } catch(error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     async getLocationsInThisCounty() {
@@ -190,11 +190,11 @@ export default {
     },
     async deleteVaccLocation(locationCounty, locationAddress) {
       try {
-        console.log(locationCounty, locationAddress);
+        //console.log(locationCounty, locationAddress);
         await axios.delete(`/api/county/${locationCounty}/site/${locationAddress}`);
         location.reload();
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     editLocationFunction(address) {
@@ -203,7 +203,7 @@ export default {
     },
     async editLocationInfo(locationCounty, locationAddress) {
       //Call put api endpoint
-      console.log(locationCounty, locationAddress);
+      //console.log(locationCounty, locationAddress);
       try {
         await axios.put(`/api/county/${locationCounty}/site/${locationAddress}`, {
           city: this.newCity,
@@ -217,7 +217,7 @@ export default {
         this.newPlaceName = "";
         this.newZipcode = "";
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     showDiv(address) {
