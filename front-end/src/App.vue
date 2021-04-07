@@ -6,6 +6,19 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/about">Appointments</router-link> |
         <router-link to="/admin">Admin</router-link>
+
+
+        <div class="btn-group" v-if="this.$root.$data.user != null">
+          <button type="button" id="btn-style" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <button class="dropdown-item" type="button">Logged in as: {{this.$root.$data.user.firstName}} {{this.$root.$data.user.lastName}}</button>
+            <button @click="logout()" class="dropdown-item" type="button">Logout <i class="fas fa-sign-out-alt"></i></button>
+          </div>
+        </div>
+
+
       </div>
     </div>
     <router-view/>
@@ -14,6 +27,30 @@
     </div>
   </div>
 </template>
+
+
+<script>
+import axios from 'axios';
+export default {
+  name: 'App',
+  data() {
+    return {
+    }
+  },
+  methods: {
+    async logout() {
+      console.log("logout over here");
+      try {
+        await axios.delete("/api/users");
+        this.$root.$data.user = null;
+      } catch (error) {
+        this.$root.$data.user = null;
+      }
+    },
+  },
+}
+</script>
+
 
 <style>
 * {
@@ -73,6 +110,15 @@
   height: 50px;
   text-align: center;
   margin-top: 50px;
+}
+
+.btn-group {
+  margin-left: 10px;
+}
+
+#btn-style {
+  background-color: #FFFFFF;
+  color: #3771D8;
 }
 
 </style>
