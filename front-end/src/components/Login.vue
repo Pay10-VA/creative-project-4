@@ -8,9 +8,9 @@
 
     <div class="login-form" v-if="this.view == 1">
       <h1>Login</h1>
-      <input placeholder="Username" />
-      <input placeholder="Password"/>
-      <button>Login</button>
+      <input v-model="loginUserName" placeholder="Username" />
+      <input v-model="loginPassword" placeholder="Password"/>
+      <button @click="login()">Login</button>
     </div>
 
     <div class="create-account-form" v-if="this.view == 2">
@@ -40,6 +40,8 @@ export default {
       email: "",
       error: "",
       errorLogin: "",
+      loginUserName: "",
+      loginPassword: "",
     }
   },
   methods: {
@@ -52,7 +54,6 @@ export default {
       if (this.firstName == ""|| this.lastName == ""|| this.email == ""|| this.username == "" || this.password == "")
         return;
       try {
-        console.log("in");
         let response = await axios.post('/api/users', {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -67,6 +68,23 @@ export default {
         this.$root.$data.user = null;
       }
     },
+    async login() {
+      this.error = '';
+      this.errorLogin = '';
+      if (this.loginUserName  == "" || this.loginPassword == "")
+        return;
+      try {
+        let response = await axios.post('/api/users/login', {
+          username: this.loginUserName,
+          password: this.loginPassword,
+          });
+          this.$root.$data.user = response.data.user;
+          this.view = 3;
+      } catch (error) {
+        this.errorLogin = "Error: " + error.response.data.message;
+        this.$root.$data.user = null;
+      }
+   },
   },
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <div>
+    <div v-if="this.$root.$data.user != null">
       <div id="page-title" v-if="this.appointmentList.length != 0">
         <h1>Appointment Manager</h1>
       </div>
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <Login/>
+    <Login v-else />
   </div>
 </template>
 
