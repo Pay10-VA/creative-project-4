@@ -36,7 +36,7 @@
                   <h1>{{site.placeName}}</h1>
                   <h3><i class="fas fa-map-marker-alt blue"></i> {{site.streetAddress}}, {{site.city}} {{site.zipcode}}</h3>
                 </div>
-                <div class='right-div'>
+                <div class='right-div' v-if="$root.$data.user != null">
                   <button v-if="bookAppointment == false" @click="bookIt(site.streetAddress)">Book Appt.</button>
                 </div>
               </div>
@@ -108,8 +108,14 @@ export default {
       overLimit: false,
     }
   },
-  created() {
+  async created() {
     this.getList();
+    try {
+      let response = await axios.get('/api/users');
+      this.$root.$data.user = response.data.user;
+    } catch (error) {
+      this.$root.$data.user = null;
+    }
   },
   methods: {
     async getList() {
