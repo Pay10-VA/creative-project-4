@@ -80,6 +80,7 @@ export default {
           });
           this.$root.$data.user = response.data.user;
           this.view = 3;
+          location.reload(); //Reloads the page
       } catch (error) {
         this.errorLogin = "Error: " + error.response.data.message;
         this.$root.$data.user = null;

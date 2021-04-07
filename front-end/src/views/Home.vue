@@ -187,7 +187,10 @@ export default {
       }
     },
     async getNumAppointments() {
-      let list = await axios.get('/api/appointment');
+      this.appointmentList = [];
+      let userID = await axios.get('/api/users');
+      userID = userID.data.user._id;
+      let list = await axios.get('/api/appointment/' + userID);
       this.appointmentList = list.data;
     }
   },

@@ -32,6 +32,12 @@ app.use(cookieSession({
     }
 }));
 
+// import the users module and setup its API path
+const users = require("./users.js");
+const User = users.model; //import user model
+app.use("/api/users", users.routes);
+const validUser = users.valid;
+
 // Create a scheme for counties
 const countySchema = new mongoose.Schema({
   name: String,
@@ -40,10 +46,6 @@ const countySchema = new mongoose.Schema({
 
 // Create a model for counties
 const County = mongoose.model('County', countySchema);
-
-// import the users module and setup its API path
-const users = require("./users.js");
-app.use("/api/users", users.routes);
 
 // Add a county
 app.post('/api/county', async (req, res) => {
@@ -247,7 +249,7 @@ app.post('/api/appointment', async (req, res) => {
 });
 
 
-//Endpoint to get all appointments in appointment collection
+//Endpoint to get all appointments
 app.get('/api/appointment', async (req, res) => {
   try {
     let list = await Appointment.find();
@@ -257,6 +259,24 @@ app.get('/api/appointment', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+
+//Endpoint to get all appointments for a given user
+app.get('/api/appointment/:id', async (req, res) => {
+  try {
+    //console.log(req.params.id);
+    let user = await User.find({_id: req.params.id});
+    //let user = await User.find({_id: req.body.user});
+    //let user = "606d2f09f2b7664310d14c3a"
+    let list = await Appointment.find({user: user});
+    res.send(list);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+
 
 
 app.delete('/api/appointment/:id', async (req, res) => {

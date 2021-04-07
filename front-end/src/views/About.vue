@@ -97,7 +97,10 @@ export default {
   },
   methods: {
     async getAppointmentList() {
-      let list = await axios.get('/api/appointment');
+      let userID = await axios.get('/api/users');
+      userID = userID.data.user._id;
+      //console.log(userID);
+      let list = await axios.get('/api/appointment/' + userID);
       this.appointmentList = list.data;
     },
     async cancelAppt(id) {
