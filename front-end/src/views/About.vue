@@ -16,7 +16,8 @@
           <h3 class="element"> <i class="fas fa-map-marker-alt blue"></i> {{appointment.placeAddress}}, {{appointment.placeCity}} {{appointment.placeZipcode}}</h3>
           <h5 class="element"> <i class="far fa-calendar-alt"></i> {{appointment.appointmentDate}}</h5>
           <h5 class="element"> <i class="far fa-clock"></i> {{appointment.appointmentTime}}</h5>
-          <h6 class="element"> <i class="far fa-user"></i> {{appointment.userName}}, {{appointment.userAge}}</h6>
+          <h6 class="element"> <i class="far fa-user"></i> {{appointment.user.firstName}} {{appointment.user.lastName}}</h6>
+          <h6>Confirmation Email Sent To: {{appointment.user.email}}</h6>
           <div class="button-div">
             <button id="edit" @click="editAppointmentFunction(appointment._id)" v-if="editAppointment == false">Edit</button>
             <button id="cancel" @click="cancelAppt(appointment._id)" v-if="editAppointment == false">Cancel</button>

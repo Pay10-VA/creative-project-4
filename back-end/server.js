@@ -268,7 +268,7 @@ app.get('/api/appointment/:id', async (req, res) => {
     let user = await User.find({_id: req.params.id});
     //let user = await User.find({_id: req.body.user});
     //let user = "606d2f09f2b7664310d14c3a"
-    let list = await Appointment.find({user: user});
+    let list = await Appointment.find({user: user}).populate('user');
     res.send(list);
   } catch (error) {
     console.log(error);
