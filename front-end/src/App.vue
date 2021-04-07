@@ -24,7 +24,7 @@
     </div>
     <router-view/>
     <div id="footer">
-      <a id="footer-link" href="https://github.com/Pay10-VA/creative-project-4.git">GitHub Repository</a>
+      <a id="footer-link" href="https://github.com/Pay10-VA/creative-project-4.git"><i class="fab fa-github"></i> Github Repository</a>
     </div>
   </div>
 </template>
