@@ -51,6 +51,7 @@ export default {
 }
 
 .initial-screen {
+  margin-top: 200px;
   border: black outset thin;
   width: 70%;
   margin-left: auto;
@@ -65,6 +66,7 @@ export default {
 }
 
 .login-form {
+  margin-top: 200px;
   border: outset black thin;
   width: 70%;
   margin-left: auto;
@@ -86,6 +88,7 @@ export default {
 }
 
 .create-account-form {
+  margin-top: 200px;
   display: block;
   width: 70%;
   margin-left: auto;
