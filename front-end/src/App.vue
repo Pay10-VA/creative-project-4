@@ -10,7 +10,7 @@
 
         <div class="btn-group">
           <button type="button" id="btn-style" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Account
+            <i id="icon" class="fas fa-user-circle fa-2x"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item" type="button" v-if="this.$root.$data.user != null">Logged in as: {{this.$root.$data.user.firstName}} {{this.$root.$data.user.lastName}}</button>
@@ -120,8 +120,15 @@ export default {
 }
 
 #btn-style {
-  background-color: #FFFFFF;
-  color: #3771D8;
+  background-color: #3771D8;
+  border-radius: 50%;
+  border: #3771D8;
+  outline: none;
 }
+
+#icon {
+  color: white;
+}
+
 
 </style>
