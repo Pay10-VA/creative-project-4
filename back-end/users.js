@@ -61,6 +61,41 @@ userSchema.methods.toJSON = function() {
 // create a User model from the User schema
 const User = mongoose.model('User', userSchema);
 
+
+
+/* Middleware */ //Cookie stuff
+
+// middleware function to check for logged-in users
+const validUser = async (req, res, next) => {
+  if (!req.session.userID)
+    return res.status(403).send({
+      message: "not logged in"
+    });
+  try {
+    const user = await User.findOne({
+      _id: req.session.userID
+    });
+    if (!user) {
+      return res.status(403).send({
+        message: "not logged in"
+      });
+    }
+    // set the user field in the request
+    req.user = user;
+  } catch (error) {
+    // Return an error if user does not exist.
+    return res.status(403).send({
+      message: "not logged in"
+    });
+  }
+
+  // if everything succeeds, move to the next middleware
+  next();
+};
+
+
+
+
 /* API Endpoints */
 
 /* All of these endpoints start with "/" here, but will be configured by the
@@ -97,6 +132,7 @@ router.post('/', async (req, res) => {
       password: req.body.password
     });
     await user.save();
+    req.session.userID = user._id;
     // send back a 200 OK response, along with the user that was created
     return res.send({
       user: user
@@ -131,7 +167,7 @@ router.post('/login', async (req, res) => {
       return res.status(403).send({
         message: "username or password is wrong"
       });
-
+    req.session.userID = user._id;
     return res.send({
       user: user
     });
@@ -175,7 +211,20 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// get logged in user
+router.get('/', validUser, async (req, res) => {
+  try {
+    res.send({
+      user: req.user
+    });
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
+
 module.exports = {
   routes: router,
-  model: User
+  model: User,
+  valid: validUser
 };

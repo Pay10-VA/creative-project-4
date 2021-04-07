@@ -19,6 +19,19 @@ mongoose.connect('mongodb://localhost:27017/vaccine-sites', {
   useUnifiedTopology: true
 });
 
+//Cookie stuff
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+const cookieSession = require('cookie-session');
+app.use(cookieSession({
+    name: 'session',
+    keys: ['secretValue'],
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+}));
+
 // Create a scheme for counties
 const countySchema = new mongoose.Schema({
   name: String,

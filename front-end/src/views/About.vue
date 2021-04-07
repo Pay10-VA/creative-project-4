@@ -83,8 +83,17 @@ export default {
       newDate: "",
     }
   },
-  created() {
+  //created() {
+    //this.getAppointmentList();
+  //},
+  async created() {
     this.getAppointmentList();
+    try {
+      let response = await axios.get('/api/users');
+      this.$root.$data.user = response.data.user;
+    } catch (error) {
+      this.$root.$data.user = null;
+    }
   },
   methods: {
     async getAppointmentList() {
