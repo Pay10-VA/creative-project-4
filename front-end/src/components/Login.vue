@@ -9,7 +9,7 @@
     <div class="login-form" v-if="this.view == 1">
       <h1>Login</h1>
       <input v-model="loginUserName" placeholder="Username" />
-      <input v-model="loginPassword" placeholder="Password"/>
+      <input v-model="loginPassword" placeholder="Password" type="password" />
       <button @click="login()">Login</button>
     </div>
 
@@ -20,7 +20,7 @@
       <input v-model="lastName" placeholder="Last Name" />
       <input v-model="email" placeholder="Email" />
       <input v-model="userName" placeholder="Username" />
-      <input v-model="password" placeholder="Password" />
+      <input v-model="password" placeholder="Password" type="password" />
       <button @click="createNewAccount()">Create Account</button>
     </div>
   </div>

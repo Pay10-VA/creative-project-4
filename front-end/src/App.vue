@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     async logout() {
-      console.log("logout over here");
       try {
         await axios.delete("/api/users");
         this.$root.$data.user = null;
