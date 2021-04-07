@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -26,6 +27,10 @@ const countySchema = new mongoose.Schema({
 
 // Create a model for counties
 const County = mongoose.model('County', countySchema);
+
+// import the users module and setup its API path
+const users = require("./users.js");
+app.use("/api/users", users.routes);
 
 // Add a county
 app.post('/api/county', async (req, res) => {
@@ -271,6 +276,4 @@ app.put('/api/appointment/:id', async (req, res) => {
    }
 });
 
-
-
-app.listen(3000, () => console.log('Server listening on port 3001!'));
+app.listen(3000, () => console.log('Server listening on port 3000!'));

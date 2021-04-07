@@ -16,29 +16,57 @@
     <div class="create-account-form" v-if="this.view == 2">
       <h1>Hello, new user!</h1>
       <p>Fill in the following fields below to get started with your new account</p>
-      <input placeholder="First Name" />
-      <input placeholder="Second Name" />
-      <input placeholder="Email" />
-      <input placeholder="Username" />
-      <input placeholder="Password" />
-      <button>Create Account</button>
+      <input v-model="firstName" placeholder="First Name" />
+      <input v-model="lastName" placeholder="Last Name" />
+      <input v-model="email" placeholder="Email" />
+      <input v-model="userName" placeholder="Username" />
+      <input v-model="password" placeholder="Password" />
+      <button @click="createNewAccount()">Create Account</button>
     </div>
   </div>
 </template>
 
 <script>
-//import axios from 'axios';
+import axios from 'axios';
 export default {
   name: 'HomePage',
   data() {
     return {
       view: "0",
+      userName: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      error: "",
+      errorLogin: "",
     }
   },
   methods: {
     changeView(newView) {
       this.view = newView;
-    }
+    },
+    async createNewAccount() {
+      this.error = '';
+      this.errorLogin = '';
+      if (this.firstName == ""|| this.lastName == ""|| this.email == ""|| this.username == "" || this.password == "")
+        return;
+      try {
+        console.log("in");
+        let response = await axios.post('/api/users', {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          username: this.userName,
+          password: this.password,
+        });
+        this.$root.$data.user = response.data.user;
+      } catch (error) {
+        this.error = error.response.data.message;
+        console.log(this.error);
+        this.$root.$data.user = null;
+      }
+    },
   },
 }
 </script>
