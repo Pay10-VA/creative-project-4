@@ -8,13 +8,14 @@
         <router-link to="/admin">Admin</router-link>
 
 
-        <div class="btn-group" v-if="this.$root.$data.user != null">
+        <div class="btn-group">
           <button type="button" id="btn-style" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Account
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <button class="dropdown-item" type="button">Logged in as: {{this.$root.$data.user.firstName}} {{this.$root.$data.user.lastName}}</button>
-            <button @click="logout()" class="dropdown-item" type="button">Logout <i class="fas fa-sign-out-alt"></i></button>
+            <button class="dropdown-item" type="button" v-if="this.$root.$data.user != null">Logged in as: {{this.$root.$data.user.firstName}} {{this.$root.$data.user.lastName}}</button>
+            <button @click="logout()" class="dropdown-item" type="button" v-if="this.$root.$data.user != null">Logout <i class="fas fa-sign-out-alt"></i></button>
+            <button @click="signInFunction()" class="dropdown-item" type="button" v-if="this.$root.$data.user == null">Sign-in <i class="fas fa-sign-in-alt"></i></button>
           </div>
         </div>
 
@@ -46,6 +47,9 @@ export default {
       } catch (error) {
         this.$root.$data.user = null;
       }
+    },
+    signInFunction() {
+      this.$router.push("About");
     },
   },
 }
