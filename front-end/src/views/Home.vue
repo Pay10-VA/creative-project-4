@@ -60,13 +60,10 @@
                     <option value="5:00 pm">5:00 pm </option>
                   </select>
 
-
-                  <div class="personal">
-                    <input id="left-input" class="personal-info" placeHolder="Full Name" v-model="userName"/>
-                    <input id="right-input" class="personal-info" placeHolder="Age" v-model="userAge">
+                  <div class="button-div">
+                    <button type="button" id="reserve" @click="addAppointment(site.placeName, site.streetAddress, site.zipcode, site.city)">Reserve Vaccination Slot</button>
+                    <button id="cancel" @click="reloadPage()">Cancel</button>
                   </div>
-                  <button type="button" id="reserve" @click="addAppointment(site.placeName, site.streetAddress, site.zipcode, site.city)">Reserve Vaccination Slot</button>
-                  <button id="cancel" @click="reloadPage()">Cancel</button>
                 </div>
 
                 <div class="alert alert-danger" role="alert" v-if="overLimit == true">
@@ -166,9 +163,9 @@ export default {
       this.getNumAppointments;
       if(this.appointmentList.length + 1 < 3) {
         try {
+          let user = this.$root.$data.user;
           await axios.post('/api/appointment', {
-            userName: this.userName,
-            userAge: this.userAge,
+            user: user,
             appointmentDate: this.appointmentDate,
             appointmentTime: this.appointmentTime,
             placeName: place,

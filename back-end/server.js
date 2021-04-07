@@ -206,14 +206,18 @@ app.put('/api/county/:countyID/site/:siteAddress', async (req, res) => {
 
 // Create a scheme for appointment
 const appointmentSchema = new mongoose.Schema({
-  userName: String,
-  userAge: Number,
+  //userName: String,
+  //userAge: Number,
   appointmentTime: String,
   appointmentDate: String,
   placeName: String,
   placeAddress: String,
   placeZipcode: String,
   placeCity: String,
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  },
 });
 
 // Create a model for appointments
@@ -223,14 +227,15 @@ const Appointment = mongoose.model('Appointment', appointmentSchema);
 // Create an appointment
 app.post('/api/appointment', async (req, res) => {
   const appointment = new Appointment({
-    userName: req.body.userName,
-    userAge: req.body.userAge,
+    //userName: req.body.userName,
+    //userAge: req.body.userAge,
     appointmentTime: req.body.appointmentTime,
     appointmentDate: req.body.appointmentDate,
     placeName: req.body.placeName,
     placeAddress: req.body.placeAddress,
     placeZipcode: req.body.placeZipcode,
     placeCity: req.body.placeCity,
+    user: req.body.user,
   });
   try {
     await appointment.save();
