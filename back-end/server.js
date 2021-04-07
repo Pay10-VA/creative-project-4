@@ -220,6 +220,10 @@ const appointmentSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'User'
   },
+  completed: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // Create a model for appointments
@@ -305,6 +309,24 @@ app.put('/api/appointment/:id', async (req, res) => {
      appointment.placeAddress = req.body.placeAddress;
      appointment.placeZipcode = req.body.placeZipcode;
      appointment.placeCity = req.body.placeCity;
+
+     await appointment.save();
+     res.send(appointment);
+   } catch (error) {
+       console.log(error);
+       res.sendStatus(500);
+   }
+});
+
+//Endpoint to update appointment's completed status
+app.put('/api/appointment', async (req, res) => {
+  try {
+     let appointment = await Appointment.findOne({_id: req.body.id});
+     if (!appointment) {
+         res.send(404);
+         return;
+     }
+     appointment.completed = req.body.completed;
 
      await appointment.save();
      res.send(appointment);

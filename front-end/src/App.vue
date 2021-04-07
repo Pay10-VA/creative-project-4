@@ -14,6 +14,7 @@
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item" type="button" v-if="this.$root.$data.user != null">Logged in as: {{this.$root.$data.user.firstName}} {{this.$root.$data.user.lastName}}</button>
+            <button @click="goToProfile()" class="dropdown-item" type="button" v-if="this.$root.$data.user != null">View Profile</button>
             <button @click="logout()" class="dropdown-item" type="button" v-if="this.$root.$data.user != null">Logout <i class="fas fa-sign-out-alt"></i></button>
             <button @click="signInFunction()" class="dropdown-item" type="button" v-if="this.$root.$data.user == null">Sign-in <i class="fas fa-sign-in-alt"></i></button>
           </div>
@@ -49,6 +50,9 @@ export default {
     },
     signInFunction() {
       this.$router.push("About");
+    },
+    goToProfile() {
+      this.$router.push("Profile");
     },
   },
 }

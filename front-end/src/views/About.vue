@@ -18,9 +18,12 @@
           <h5 class="element"> <i class="far fa-clock"></i> {{appointment.appointmentTime}}</h5>
           <h6 class="element"> <i class="far fa-user"></i> {{appointment.user.firstName}} {{appointment.user.lastName}}</h6>
           <h6>Confirmation Email Sent To: {{appointment.user.email}}</h6>
+          <h6 class="apptNotdone" v-if="appointment.completed == false">Status: Awaiting Vaccination Day</h6>
+          <h6 class="apptDone" v-if="appointment.completed == true">Status: Done</h6>
           <div class="button-div">
-            <button id="edit" @click="editAppointmentFunction(appointment._id)" v-if="editAppointment == false">Edit</button>
-            <button id="cancel" @click="cancelAppt(appointment._id)" v-if="editAppointment == false">Cancel</button>
+            <button id="edit" @click="editAppointmentFunction(appointment._id)" v-if="editAppointment == false && appointment.completed == false">Edit</button>
+            <button id="cancel" @click="cancelAppt(appointment._id)" v-if="editAppointment == false && appointment.completed == false">Cancel</button>
+            <button id="done" @click="apptDone(appointment._id)">Mark Done</button>
           </div>
           <div v-if="show(appointment._id)" class="edit-apt-div">
             <label>Enter new changes</label>
@@ -145,7 +148,14 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+    async apptDone(apptID) {
+      await axios.put('/api/appointment', {
+        id: apptID,
+        completed: true,
+      });
+      location.reload();
+    },
   },
 }
 </script>
@@ -248,6 +258,22 @@ export default {
   margin-top: 10px;
   background-color: #CF2E17;
   color: #FFFFFF;
+}
+
+#done {
+  background-color: #2DAE46; /*green*/
+  color: #FFFFFF;
+  height: 35px;
+  width: 100px;
+  margin-left: 10px;
+}
+
+.apptNotdone {
+  color: #CF2E17;
+}
+
+.apptDone {
+  color: #2DAE46;
 }
 
 
