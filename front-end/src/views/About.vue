@@ -19,7 +19,7 @@
           <h6 class="element"> <i class="far fa-user"></i> {{appointment.user.firstName}} {{appointment.user.lastName}}</h6>
           <h6>Confirmation Email Sent To: {{appointment.user.email}}</h6>
           <h6 class="apptNotdone" v-if="appointment.completed == false">Status: Awaiting Vaccination Day</h6>
-          <h6 class="apptDone" v-if="appointment.completed == true">Status: Done</h6>
+          <h6 class="apptDone" v-if="appointment.completed == true">Status: Done <i class="fas fa-syringe"></i></h6>
           <div class="button-div">
             <button id="edit" @click="editAppointmentFunction(appointment._id)" v-if="editAppointment == false && appointment.completed == false">Edit</button>
             <button id="cancel" @click="cancelAppt(appointment._id)" v-if="editAppointment == false && appointment.completed == false">Cancel</button>

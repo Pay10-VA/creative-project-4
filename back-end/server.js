@@ -280,6 +280,20 @@ app.get('/api/appointment/:id', async (req, res) => {
   }
 });
 
+/*
+//Endpoint to get all COMPLETED appointments for a given user
+app.get('/api/appointment/:completed/:user', async (req, res) => {
+  try {
+    console.log(req.params.completed);
+    let user = await User.find({_id: req.params.id});
+    let list = await Appointment.find({user: user, completed: req.params.completed});
+    res.send(list);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+*/
 
 
 

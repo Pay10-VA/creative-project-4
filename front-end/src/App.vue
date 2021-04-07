@@ -44,6 +44,7 @@ export default {
       try {
         await axios.delete("/api/users");
         this.$root.$data.user = null;
+        this.$router.push("About");
       } catch (error) {
         this.$root.$data.user = null;
       }
