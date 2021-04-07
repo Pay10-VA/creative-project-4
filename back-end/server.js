@@ -297,8 +297,8 @@ app.put('/api/appointment/:id', async (req, res) => {
          return;
      }
      //county.name = req.body.name;
-     appointment.userName = req.body.userName;
-     appointment.userAge = req.body.userAge;
+     //appointment.userName = req.body.userName;
+     //appointment.userAge = req.body.userAge;
      appointment.appointmentTime = req.body.appointmentTime;
      appointment.appointmentDate = req.body.appointmentDate;
      appointment.placeName = req.body.placeName;

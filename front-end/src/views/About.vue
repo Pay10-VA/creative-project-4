@@ -40,10 +40,7 @@
                 <option value="5:00 pm">5:00 pm </option>
               </select>
             </div>
-            <div class="second-div">
-              <input placeHolder="Enter Name" v-model="newName"/>
-              <input placeHolder="Enter Age" v-model="newAge"/>
-            </div>
+
             <button @click="saveAppointmentEdits(appointment._id, appointment.placeName, appointment.placeAddress, appointment.placeCity, appointment.placeZipcode)">Save Changes</button>
             <button id="nevermind" @click="cancelEditAppt()">Delete Changes</button>
           </div>
@@ -135,8 +132,6 @@ export default {
     async saveAppointmentEdits(id, place, address, city, zip) {
       try {
         await axios.put(`/api/appointment/${id}`, {
-          userName: this.newName,
-          userAge: this.newAge,
           appointmentTime: this.newTime,
           appointmentDate: this.newDate,
           placeName: place,
