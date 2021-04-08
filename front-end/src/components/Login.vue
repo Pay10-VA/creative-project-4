@@ -15,7 +15,6 @@
 
     <div class="create-account-form" v-if="this.view == 2">
       <h1>Hello, new user!</h1>
-      <p>Fill in the following fields below to get started with your new account</p>
       <input v-model="firstName" placeholder="First Name" />
       <input v-model="lastName" placeholder="Last Name" />
       <input v-model="email" placeholder="Email" />
@@ -168,16 +167,54 @@ export default {
 @media only screen and (min-width: 961px) {
 
 .initial-screen {
-  width: 45%;
+  width: 25%;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  font-size: 25px;
+}
+
+.initial-screen button {
+  background-color: #3771D8;
+  color: #FFFFFF;
 }
 
 .login-form {
-  width: 45%;
+  width: 25%;
+}
+
+.login-form  button {
+  font-size: 25px;
+  margin-top: 20px;
+  background-color: #3771D8;
+  color: #FFFFFF;
+}
+
+.login-form input {
+  font-size: 25px;
+}
+
+.login-form h1 {
+  margin-bottom: 20px;
 }
 
 .create-account-form {
-  width: 45%;
+  width: 25%;
+  font-size: 25px;
 }
+
+.create-account-form h1 {
+  margin-bottom: 20px;
+}
+
+.create-account-form button {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  background-color: #3771D8;
+  color: #FFFFFF;
+}
+
 
 }
 

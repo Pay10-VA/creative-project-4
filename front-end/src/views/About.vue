@@ -63,7 +63,6 @@
             <li>Make sure to bring personal identfication documents(Driver's license, passport, work ID)</li>
             <li>Have your appointment confirmation available when checking-in</li>
             <li>Arrive 15 minutes ahead of your scheduled vaccination time</li>
-
           </ul>
         </div>
       </div>
