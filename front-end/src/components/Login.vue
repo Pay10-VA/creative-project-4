@@ -25,7 +25,7 @@
       <input v-model="password" placeholder="Password" type="password" />
 
       <div class="alert alert-danger banner" role="alert" v-if="error">
-        Username or Password Already Exists
+        Username Already Exists
       </div>
 
       <button @click="createNewAccount()">Create Account</button>
