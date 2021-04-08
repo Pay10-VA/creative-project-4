@@ -4,8 +4,8 @@
       <h1><router-link to="/">Nevada Vaccine Finder <i class="fas fa-star-of-life"></i></router-link></h1>
       <div id="links">
         <router-link to="/">Home</router-link> |
-        <router-link to="/about">Appointments</router-link> |
-        <router-link to="/admin">Admin</router-link>
+        <router-link to="/about" >Appointments</router-link>
+        <router-link to="/admin" v-if="showAdminLink == true"> | Admin</router-link>
 
 
         <div class="btn-group">
@@ -37,7 +37,11 @@ export default {
   name: 'App',
   data() {
     return {
+      showAdminLink: false,
     }
+  },
+  created() {
+    this.showAdmin();
   },
   methods: {
     async logout() {
@@ -55,6 +59,14 @@ export default {
     goToProfile() {
       this.$router.push("Profile");
     },
+    showAdmin() {
+      if(this.$root.$data.user == null) {
+        this.showAdminLink = false;
+      }
+      else {
+        this.showAdminLink = true;
+      }
+    }
   },
 }
 </script>
