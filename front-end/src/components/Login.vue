@@ -10,6 +10,9 @@
       <h1>Login</h1>
       <input v-model="loginUserName" placeholder="Username" />
       <input v-model="loginPassword" placeholder="Password" type="password" />
+      <div class="alert alert-danger banner" role="alert" v-if="errorLogin">
+        Incorrect Username or Password
+      </div>
       <button @click="login()">Login</button>
     </div>
 
@@ -20,6 +23,11 @@
       <input v-model="email" placeholder="Email" />
       <input v-model="userName" placeholder="Username" />
       <input v-model="password" placeholder="Password" type="password" />
+
+      <div class="alert alert-danger banner" role="alert" v-if="error">
+        Username or Password Already Exists
+      </div>
+
       <button @click="createNewAccount()">Create Account</button>
     </div>
   </div>
@@ -161,6 +169,13 @@ export default {
   width: 70%;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.banner {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 5px 5px 5px;
 }
 
 /* Desktop Styles */
