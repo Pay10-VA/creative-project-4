@@ -49,7 +49,7 @@
           </div>
           <div class="modal-footer" id="theModalFooter">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton" >Close</button>
-            <button type="button" id="redButton" class="btn btn-primary">Delete Account</button>
+            <button type="button" id="redButton" class="btn btn-primary" data-dismiss="modal" @click="deleteAccount()">Delete Account</button>
           </div>
         </div>
       </div>
@@ -71,7 +71,6 @@ export default {
   data() {
     return {
       vaccineRecordList: [],
-      showConfirmation: false,
     }
   },
   async created() {
@@ -91,8 +90,20 @@ export default {
       list = list.data;
       this.vaccineRecordList = list.filter(x => x.completed == true); //Filters completed appointments
     },
-    async deleteTheAccount() {
-      this.showConfirmation = true;
+    async deleteAccount() {
+      //Goes to the modified logout endpoint with id, delete first account first, then clear the session via req.sesesion = null
+
+      try {
+        let userID = await axios.get('/api/users');
+        userID = userID.data.user._id;
+        await axios.delete("/api/users/" + userID); //logs out user
+        this.$root.$data.user = null;
+        this.$router.push("About");
+        this.show = false;
+      } catch (error) {
+        this.$root.$data.user = null;
+      }
+
     },
   },
 }

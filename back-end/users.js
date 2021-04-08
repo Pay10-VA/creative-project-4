@@ -238,6 +238,19 @@ router.delete("/", validUser, async (req, res) => {
   }
 });
 
+//Endpoint to delete account and log out of session
+router.delete("/:id", validUser, async (req, res) => {
+  try {
+    await User.deleteOne({_id: req.params.id}); //Delete user
+    req.session = null; //logs out session
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
+
+
 module.exports = {
   routes: router,
   model: User,
