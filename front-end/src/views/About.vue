@@ -28,11 +28,13 @@
           <h6>Confirmation Email Sent To: {{appointment.user.email}}</h6>
           <h6 class="apptNotdone" v-if="appointment.completed == false">Status: Awaiting Vaccination Day</h6>
           <h6 class="apptDone" v-if="appointment.completed == true">Status: Done <i class="fas fa-syringe"></i></h6>
+
           <div class="button-div">
             <button id="edit" @click="editAppointmentFunction(appointment._id)" v-if="editAppointment == false && appointment.completed == false">Edit</button>
             <button id="cancel" @click="cancelAppt(appointment._id)" v-if="editAppointment == false && appointment.completed == false">Cancel</button>
             <button id="done" @click="apptDone(appointment._id)">Mark Done</button>
           </div>
+          
           <div v-if="show(appointment._id)" class="edit-apt-div">
             <label>Enter new changes</label>
             <div class="first-div">
@@ -65,6 +67,7 @@
             <li>Arrive 15 minutes ahead of your scheduled vaccination time</li>
           </ul>
         </div>
+
       </div>
     </div>
     <Login v-else />

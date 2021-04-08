@@ -190,7 +190,6 @@ export default {
     },
     async deleteVaccLocation(locationCounty, locationAddress) {
       try {
-        //console.log(locationCounty, locationAddress);
         await axios.delete(`/api/county/${locationCounty}/site/${locationAddress}`);
         location.reload();
       } catch (error) {
@@ -202,8 +201,6 @@ export default {
       this.editAddress = address;
     },
     async editLocationInfo(locationCounty, locationAddress) {
-      //Call put api endpoint
-      //console.log(locationCounty, locationAddress);
       try {
         await axios.put(`/api/county/${locationCounty}/site/${locationAddress}`, {
           city: this.newCity,
