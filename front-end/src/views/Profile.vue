@@ -26,7 +26,39 @@
         </div>
       </div>
     </div>
-    <button class="deleteAccount">Delete Account</button>
+
+
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary deleteAccount" data-toggle="modal" data-target="#exampleModalCenter">
+      Delete Account
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="thisModalDiv">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Do you really want to do this?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="mainModal">
+            Deleting this account will wipe out all information
+          </div>
+          <div class="modal-footer" id="theModalFooter">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeButton" >Close</button>
+            <button type="button" id="redButton" class="btn btn-primary">Delete Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
 
   </div>
 </template>
@@ -39,6 +71,7 @@ export default {
   data() {
     return {
       vaccineRecordList: [],
+      showConfirmation: false,
     }
   },
   async created() {
@@ -57,6 +90,9 @@ export default {
       let list = await axios.get('/api/appointment/' + userID);
       list = list.data;
       this.vaccineRecordList = list.filter(x => x.completed == true); //Filters completed appointments
+    },
+    async deleteTheAccount() {
+      this.showConfirmation = true;
     },
   },
 }
@@ -143,6 +179,12 @@ export default {
   margin-top: 20px;
 }
 
+#redButton {
+  background-color: #CF2E17;
+  color: #FFFFFF;
+  margin-right: 10px !important;
+}
+
 
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
@@ -161,6 +203,48 @@ export default {
   margin-top: 20px;
   margin-botto: 10px;
   height: 40px;
+}
+
+/*Centers the modal horizontally on the screen*/
+.modal {
+  width: 450px;
+  margin: 0 auto;
+  font-size: 15px;
+}
+
+.modal-header h5 {
+  font-size: 25px;
+  padding-top: 10px;
+  padding-left: 45px;
+  padding-bottom: 10px;
+}
+
+#theModalFooter {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#mainModal {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#theModalFooter button {
+  border-radius: 0 0 0 0;
+}
+
+#redButton {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#closeButton {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 }
