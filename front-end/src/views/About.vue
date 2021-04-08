@@ -34,7 +34,7 @@
             <button id="cancel" @click="cancelAppt(appointment._id)" v-if="editAppointment == false && appointment.completed == false">Cancel</button>
             <button id="done" @click="apptDone(appointment._id)">Mark Done</button>
           </div>
-          
+
           <div v-if="show(appointment._id)" class="edit-apt-div">
             <label>Enter new changes</label>
             <div class="first-div">
@@ -209,7 +209,7 @@ export default {
 
 #edit {
   margin-right: 10px;
-  height: 35px;
+  height: 45px;
   width: 100px;
   background-color: #3771D8;
   color: #FFFFFF;
@@ -220,7 +220,7 @@ export default {
 }
 
 #cancel {
-  height: 35px;
+  height: 45px;
   width: 100px;
   background-color: #CF2E17;
   color: #FFFFFF;
@@ -265,7 +265,7 @@ export default {
 
 .edit-apt-div button {
   width: 60%;
-  height: 30px;
+  height: 45px;
   background-color: #2DAE46;
   color: #FFFFFF;
 }
@@ -279,7 +279,7 @@ export default {
 #done {
   background-color: #2DAE46; /*green*/
   color: #FFFFFF;
-  height: 35px;
+  height: 45px;
   width: 100px;
   margin-left: 10px;
 }

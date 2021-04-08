@@ -14,7 +14,7 @@
     </div>
 
     <div class="vaccineRecord">
-      <h1 class="headingMain"><strong>Vaccination Record/Completed Appointments</strong></h1>
+      <h1 class="headingMain"><strong>Vaccination Record</strong></h1>
       <h3 v-if="vaccineRecordList.length == 0">There is nothing on record yet...</h3>
       <div v-if="vaccineRecordList.length != 0">
         <div class="single" v-for="record in vaccineRecordList" :key="record._id">
@@ -87,9 +87,10 @@ export default {
   margin-left: auto;
   margin-right: auto;
   text-align: left;
-  padding-top: 5px;
+  padding-top: 10px;
   padding-left: 5px;
   padding-right: 5px;
+  padding-bottom: 10px;
 }
 
 .margin-bottom-space {
@@ -109,8 +110,8 @@ export default {
   color: #FFFFFF;
   width: 80%;
   margin-top: 10px;
-  margin-botto: 10px;
-  height: 40px;
+  margin-bottom: 10px;
+  height: 45px;
 }
 
 .vaccineRecord {
@@ -123,6 +124,7 @@ export default {
   padding-top: 5px;
   padding-left: 5px;
   padding-right: 5px;
+  padding-bottom: 10px;
 }
 
 .blue {

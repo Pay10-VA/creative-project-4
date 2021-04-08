@@ -241,7 +241,7 @@ export default {
 
 .right-div button {
   width: 100px;
-  height: 30px;
+  height: 45px;
   background-color: #3771D8;
   color: #FFFFFF;
   margin-bottom: 20px;
@@ -380,6 +380,11 @@ hr {
 #cancel {
   display: inline;
   margin-left: 10px;
+  height: 40px;
+}
+
+#reserve {
+  height: 40px;
 }
 
 }/*closing bracket for media styles*/
