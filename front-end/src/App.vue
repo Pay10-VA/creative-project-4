@@ -3,9 +3,9 @@
     <div id="header">
       <h1><router-link to="/">Nevada Vaccine Finder <i class="fas fa-star-of-life"></i></router-link></h1>
       <div id="links">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about" >Appointments</router-link>
-        <router-link to="/admin" v-if="showAdminLink == true"> | Admin</router-link>
+        <router-link to="/">Home</router-link>
+        <router-link to="/about" v-if="show == false"> | Appointments</router-link>
+        <router-link to="/admin" v-if="show == true"> | Admin</router-link>
 
 
         <div class="btn-group">
@@ -14,7 +14,7 @@
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <button class="dropdown-item" type="button" v-if="this.$root.$data.user != null">Logged in as: {{this.$root.$data.user.firstName}} {{this.$root.$data.user.lastName}}</button>
-            <button @click="goToProfile()" class="dropdown-item" type="button" v-if="this.$root.$data.user != null">View Profile</button>
+            <button @click="goToProfile()" class="dropdown-item" type="button" v-if="this.$root.$data.user != null && show == false">View Profile</button>
             <button @click="logout()" class="dropdown-item" type="button" v-if="this.$root.$data.user != null">Logout <i class="fas fa-sign-out-alt"></i></button>
             <button @click="signInFunction()" class="dropdown-item" type="button" v-if="this.$root.$data.user == null">Sign-in <i class="fas fa-sign-in-alt"></i></button>
           </div>
@@ -37,11 +37,22 @@ export default {
   name: 'App',
   data() {
     return {
-      showAdminLink: false,
+      show: false,
     }
   },
-  created() {
-    this.showAdmin();
+  async created() {
+    try {
+      let response = await axios.get('/api/users');
+      this.$root.$data.user = response.data.user;
+      if(response.data.user.role == null) {
+        this.show = false;
+      }
+      else {
+        this.show = true;
+      }
+    } catch (error) {
+      this.$root.$data.user = null;
+    }
   },
   methods: {
     async logout() {
@@ -49,6 +60,7 @@ export default {
         await axios.delete("/api/users");
         this.$root.$data.user = null;
         this.$router.push("About");
+        this.show = false;
       } catch (error) {
         this.$root.$data.user = null;
       }
@@ -59,14 +71,6 @@ export default {
     goToProfile() {
       this.$router.push("Profile");
     },
-    showAdmin() {
-      if(this.$root.$data.user == null) {
-        this.showAdminLink = false;
-      }
-      else {
-        this.showAdminLink = true;
-      }
-    }
   },
 }
 </script>

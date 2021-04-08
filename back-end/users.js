@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   role: {
     type: String,
-    default: ""
+    default: null//""
   }
 });
 

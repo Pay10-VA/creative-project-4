@@ -79,8 +79,14 @@ export default {
           password: this.loginPassword,
           });
           this.$root.$data.user = response.data.user;
-          this.view = 3;
-          location.reload(); //Reloads the page
+          if(this.$root.$data.user.role == null) {
+            this.view = 3;
+            location.reload(); //Reloads the page
+          }
+          else {
+            location.reload(); //Reloads the page
+            this.$router.push("Admin");
+          }
       } catch (error) {
         this.errorLogin = "Error: " + error.response.data.message;
         this.$root.$data.user = null;

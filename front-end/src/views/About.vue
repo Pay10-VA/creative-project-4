@@ -5,9 +5,17 @@
         <h1>Appointment Manager</h1>
       </div>
 
-      <div id="message" v-if="this.appointmentList.length == 0">
+      <div id="message" v-if="this.appointmentList.length == 0 && this.$root.$data.user.role == null">
         <h1><strong>No Scheduled Appointments...</strong></h1>
         <p>Click to <router-link to="/">here</router-link> to schedule an appointment</p>
+      </div>
+
+      <div id="message" v-if="this.appointmentList.length == 0 && this.$root.$data.user.role != null">
+        <h1><strong>Now Signed in as Administor</strong></h1>
+        <i class="fas fa-user-shield fa-7x"></i>
+        <h5 id="user-header">You can go to the following pages:</h5>
+        <button @click="goHome" class="adminButton">Home</button>
+        <button @click="goAdmin" class="adminButton">Admin</button>
       </div>
 
       <div class="listOfAppointments" v-if="this.appointmentList.length != 0">
@@ -156,6 +164,12 @@ export default {
       });
       location.reload();
     },
+    goHome() {
+      this.$router.push("/");
+    },
+    goAdmin() {
+      this.$router.push("/admin");
+    }
   },
 }
 </script>
@@ -276,6 +290,16 @@ export default {
   color: #2DAE46;
 }
 
+#user-header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.adminButton {
+  width: 100px;
+  height: 50px;
+  margin-left: 10px;
+}
 
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
