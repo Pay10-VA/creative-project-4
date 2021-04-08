@@ -96,6 +96,8 @@ export default {
       try {
         let userID = await axios.get('/api/users');
         userID = userID.data.user._id;
+        console.log(userID);
+        await axios.delete("/api/appointment/random/" + userID); //Delete all appointments that have the current user as their user
         await axios.delete("/api/users/" + userID); //logs out user
         this.$root.$data.user = null;
         this.$router.push("About");

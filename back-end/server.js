@@ -307,6 +307,20 @@ app.delete('/api/appointment/:id', async (req, res) => {
   }
 });
 
+//Delete all appointments or a particular user - when user deletes their account
+app.delete('/api/appointment/random/:id', async (req, res) => {
+  try {
+    //console.log(req.params.id);
+    let user = await User.findOne({_id: req.params.id});
+    await Appointment.deleteMany({user: user});
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+
 app.put('/api/appointment/:id', async (req, res) => {
   try {
      let appointment = await Appointment.findOne({_id: req.params.id});
