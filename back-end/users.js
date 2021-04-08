@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
   email: String,
   username: String,
   password: String,
+  role: {
+    type: String,
+    default: ""
+  }
 });
 
 // This is a hook that will be called before a user record is saved,
