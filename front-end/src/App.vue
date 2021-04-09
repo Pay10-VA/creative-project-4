@@ -26,6 +26,7 @@
     <router-view/>
     <div id="footer">
       <a id="footer-link" href="https://github.com/Pay10-VA/creative-project-4.git"><i class="fab fa-github"></i> Github Repository</a>
+      <p>Number of Hours: 10hrs</p>
     </div>
   </div>
 </template>
@@ -131,7 +132,7 @@ export default {
   color: #FFFFFF;
   font-family: 'Quicksand', sans-serif;
   font-size: 20px;
-  height: 50px;
+  height: 70px;
   text-align: center;
   margin-top: 50px;
 }

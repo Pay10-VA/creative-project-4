@@ -208,8 +208,6 @@ app.put('/api/county/:countyID/site/:siteAddress', async (req, res) => {
 
 // Create a scheme for appointment
 const appointmentSchema = new mongoose.Schema({
-  //userName: String,
-  //userAge: Number,
   appointmentTime: String,
   appointmentDate: String,
   placeName: String,
@@ -233,8 +231,6 @@ const Appointment = mongoose.model('Appointment', appointmentSchema);
 // Create an appointment
 app.post('/api/appointment', async (req, res) => {
   const appointment = new Appointment({
-    //userName: req.body.userName,
-    //userAge: req.body.userAge,
     appointmentTime: req.body.appointmentTime,
     appointmentDate: req.body.appointmentDate,
     placeName: req.body.placeName,
@@ -268,10 +264,7 @@ app.get('/api/appointment', async (req, res) => {
 //Endpoint to get all appointments for a given user
 app.get('/api/appointment/:id', async (req, res) => {
   try {
-    //console.log(req.params.id);
     let user = await User.find({_id: req.params.id});
-    //let user = await User.find({_id: req.body.user});
-    //let user = "606d2f09f2b7664310d14c3a"
     let list = await Appointment.find({user: user}).populate('user');
     res.send(list);
   } catch (error) {
@@ -279,23 +272,6 @@ app.get('/api/appointment/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-/*
-//Endpoint to get all COMPLETED appointments for a given user
-app.get('/api/appointment/:completed/:user', async (req, res) => {
-  try {
-    console.log(req.params.completed);
-    let user = await User.find({_id: req.params.id});
-    let list = await Appointment.find({user: user, completed: req.params.completed});
-    res.send(list);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
-*/
-
-
 
 app.delete('/api/appointment/:id', async (req, res) => {
   try {
@@ -328,9 +304,6 @@ app.put('/api/appointment/:id', async (req, res) => {
          res.send(404);
          return;
      }
-     //county.name = req.body.name;
-     //appointment.userName = req.body.userName;
-     //appointment.userAge = req.body.userAge;
      appointment.appointmentTime = req.body.appointmentTime;
      appointment.appointmentDate = req.body.appointmentDate;
      appointment.placeName = req.body.placeName;

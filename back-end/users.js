@@ -102,9 +102,6 @@ const validUser = async (req, res, next) => {
 
 /* API Endpoints */
 
-/* All of these endpoints start with "/" here, but will be configured by the
-   module that imports this one to use a complete path, such as "/api/user" */
-
 // Endpoint to create a new user
 router.post('/', async (req, res) => {
   // Make sure that the form coming from the browser includes a username and a
