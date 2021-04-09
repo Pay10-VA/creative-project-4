@@ -3,7 +3,7 @@
 ## Admin
 
 The website has an admin page that can only be accessed if the user is logged in as the "admin". Here are the admin credentials:
-username: admin
+username: admin, 
 password: admin
 
 ## Overview
