@@ -1,5 +1,11 @@
 # Mock Vaccine Finder Site
 
+## Admin
+
+The website has an admin page that can only be accessed if the user is logged in as the "admin". Here are the admin credentials:
+username: admin
+password: admin
+
 ## Overview
 
 This is a website that mocks what a user might experience when locating and booking a vaccine appointment in the state of Nevada. Disclaimer: This site should NOT be used for medical, covid, or vaccine related information.
