@@ -177,7 +177,7 @@ export default {
           this.appointmentTime = "";
           location.reload();
         } catch(error) {
-          console.log(error);
+          //console.log(error);
         }
       }
       else {

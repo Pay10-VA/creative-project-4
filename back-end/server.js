@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/vaccine-sites', {
+mongoose.connect('mongodb://localhost:27017/vaccine-sites2', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

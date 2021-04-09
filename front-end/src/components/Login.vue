@@ -71,7 +71,7 @@ export default {
         this.$root.$data.user = response.data.user;
       } catch (error) {
         this.error = error.response.data.message;
-        console.log(this.error);
+        //console.log(this.error);
         this.$root.$data.user = null;
       }
     },

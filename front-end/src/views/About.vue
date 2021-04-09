@@ -120,7 +120,7 @@ export default {
         this.getAppointmentList();
         return true;
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     editAppointmentFunction(id) {
@@ -156,7 +156,7 @@ export default {
 
         this.newZipcode = "";
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     async apptDone(apptID) {
